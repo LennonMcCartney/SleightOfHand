@@ -18,16 +18,13 @@ public class PinchTest : MonoBehaviour {
 	private void Start() {
 		lineRenderer = GetComponent<LineRenderer>();
 
-		//lineRenderer.positionCount = 2;
-		//lineRenderer.SetPosition( 0, new Vector3(0, 0, 0) );
-		//lineRenderer.SetPosition( 1, new Vector3(1, 1, 0) );
 	}
 
 	public void FixedUpdate() {
 		if ( pinching ) {
 			counter += Time.deltaTime;
-			if ( counter > 0.05f ) {
-				drawPoints.Add( transform.position );
+			if ( counter > 0.01f ) {
+				drawPoints.Add( transform.localPosition );
 				//drawPoints.Add( new Vector2( transform.localPosition.x, transform.localPosition.y ) );
 				//Debug.Log( new Vector2( transform.localPosition.x, transform.localPosition.y ) );
 				counter = 0.0f;
