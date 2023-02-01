@@ -12,13 +12,13 @@ public class PinchTest : MonoBehaviour {
 	[SerializeField] private PinchDetector pinchDetector;
 
 	[SerializeField] private GameObject drawBackground;
-
+	
 	[SerializeField] private List<Vector2> targetGridPositions;
-	[SerializeField] private Vector2 targetGridSize = new Vector2(4,4);
-	//[SerializeField] private Vector2 targetSize;
+	[SerializeField] private Vector2 targetGridSize = new Vector2( 4, 4 );
 
 	[SerializeField] private bool pinching = false;
 
+	[SerializeField] private List<Vector2> hitTargetGridPositions;
 	[SerializeField] private List<Vector2> targetPoints;
 	[SerializeField] private List<Vector3> drawPoints;
 
@@ -29,14 +29,9 @@ public class PinchTest : MonoBehaviour {
 	private void Start() {
 		lineRenderer = GetComponent<LineRenderer>();
 
-		//for ( int j = 0; j < targetGridSize.y; j++ ) {
-			//for ( int i = 0; i < targetGridSize.x; i++ ) {
-				//targetPoints.Add( new Vector2( i, j ) );
-			//}
-		//}
 		for ( float j = 0.7f; j >= -0.7f; j -= 0.2f ) {
 			for ( float i = -0.7f; i <= 0.7f; i += 0.2f ) {
-				targetGridPositions.Add( new Vector2( i, j ) );
+				targetGridPositions.Add( new Vector2( Mathf.Round( i * 10.0f ) * 0.1f, Mathf.Round( j * 10.0f ) * 0.1f ) );
 			}
 		}
 
@@ -58,15 +53,18 @@ public class PinchTest : MonoBehaviour {
 
 				for ( int i = 0; i < targetGridPositions.Count; i++ ) {
 					if ( Vector2.Distance( targetGridPositions[i], newTargetPoint ) < 0.1f ) {
+						if ( !hitTargetGridPositions.Contains( targetGridPositions[i] ) ) {
+							hitTargetGridPositions.Add( targetGridPositions[i] );
+						}
 						Debug.Log( Vector2.Distance( targetGridPositions[0], newTargetPoint ) + " from " + targetGridPositions[i] );
 					}
 				}
-				//Debug.Log( newTargetPoint );
 
 				drawPoints.Add( new Vector3( newDrawPoint.x, newDrawPoint.y, 2 ) );
 				counter = 0.0f;
 			}
 		} else {
+			hitTargetGridPositions = new List<Vector2>();
 			drawBackground.SetActive( false );
 		}
 
