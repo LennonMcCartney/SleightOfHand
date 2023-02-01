@@ -13,9 +13,10 @@ public class PinchTest : MonoBehaviour {
 	[SerializeField] private GameObject drawBackground;
 
 	[SerializeField] private List<Vector2> targetPositions;
-	[SerializeField] private Vector2 targetSize;
+	[SerializeField] private Vector2 targetGridSize = new Vector2(4,4);
+	//[SerializeField] private Vector2 targetSize;
 
-	public bool pinching = false;
+	[SerializeField] private bool pinching = false;
 	[SerializeField] private List<Vector3> drawPoints;
 
 	LineRenderer lineRenderer;
@@ -24,6 +25,12 @@ public class PinchTest : MonoBehaviour {
 
 	private void Start() {
 		lineRenderer = GetComponent<LineRenderer>();
+
+		for ( int j = 0; j < targetGridSize.y; j++ ) {
+			for ( int i = 0; i < targetGridSize.x; i++ ) {
+
+			}
+		}
 
 	}
 
