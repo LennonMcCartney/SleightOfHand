@@ -24,6 +24,7 @@ public class PinchTest : MonoBehaviour {
 
 	//[SerializeField] private List<Vector2> hitTargetGridPositions;
 	//[SerializeField] private List<Vector2> targetPoints;
+
 	[SerializeField] private List<Vector3> drawPoints;
 
 	[SerializeField] private List<Vector2> collisionPoints;
@@ -36,6 +37,10 @@ public class PinchTest : MonoBehaviour {
 
 	private float counter = 0.0f;
 
+	private bool isACircle = false;
+
+	private bool failedAtCircle = false;
+
 	public static float Round( float value, int digits ) {
 		float mult = Mathf.Pow( 10.0f, digits );
 		return Mathf.Round( value * mult ) / mult;
@@ -43,6 +48,8 @@ public class PinchTest : MonoBehaviour {
 
 	private void Start() {
 		lineRenderer = GetComponent<LineRenderer>();
+
+		drawBackground.SetActive( false );
 
 		//circleTargetPoints = new List<Vector2>() {
 			//new Vector2( 0.0f, 0.7f ),
@@ -56,12 +63,12 @@ public class PinchTest : MonoBehaviour {
 		//};
 
 		for (int i = 0; i < 32; i++) {
-			Vector3 newCircleTargetPosition = new Vector3( Round( (float)0.7 * Mathf.Sin( (Mathf.PI / 16) * i ), 6 ), Round( (float)0.7 * Mathf.Cos( (Mathf.PI / 16) * i ), 6 ), 0 );
+			Vector3 newCircleTargetPosition = new Vector3( Round( (float) 0.5 * Mathf.Sin( (Mathf.PI / 16) * i ), 6 ), Round( (float) 0.5 * Mathf.Cos( (Mathf.PI / 16) * i ), 6 ), 0 );
 
 			GameObject newCircleTarget = Instantiate( circleTargetPrefab );//, newCircleTargetPosition, Quaternion.identity );
 			newCircleTarget.transform.parent = circleTargets.transform;
 			newCircleTarget.transform.localPosition = newCircleTargetPosition;
-			newCircleTarget.transform.localScale = new Vector3( 0.2f, 0.2f, 0.2f );
+			newCircleTarget.transform.localScale = new Vector3( 0.4f, 0.4f, 0.4f );
 
 			circleTargetPoints.Add( newCircleTargetPosition );
 		}
@@ -80,6 +87,7 @@ public class PinchTest : MonoBehaviour {
 	public void FixedUpdate() {
 		if (pinching) {
 			drawBackground.SetActive( true );
+
 			counter += Time.deltaTime;
 			if (counter > 0.01f) {
 				Vector2 newDrawPoint = new Vector2( pinchDetector.transform.localPosition.x, pinchDetector.transform.localPosition.y );
@@ -88,10 +96,34 @@ public class PinchTest : MonoBehaviour {
 				newCollisionPoint.y -= 1.5f;
 				collisionPoints.Add( newCollisionPoint );
 
-				for (int i = 0; i < circleTargetPoints.Count; i++) {
-					if (Vector2.Distance( circleTargetPoints[ i ], newCollisionPoint ) < 0.1f && !hitCircleTargetPoints.Contains( circleTargetPoints[ i ] )) {
-						hitCircleTargetPoints.Add( circleTargetPoints[ i ] );
-					}
+				//isACircle = false;
+
+				bool testBool = false;
+
+				//failedAtCircle = true;
+
+				//isACircle = false;
+
+				for ( int i = 0; i < circleTargetPoints.Count; i++ ) {
+					//bool testBool = false;
+					if ( Vector2.Distance( circleTargetPoints[i], newCollisionPoint ) < 0.2f ) {
+						testBool = true;
+						if ( !hitCircleTargetPoints.Contains( circleTargetPoints[i] ) ) {
+							hitCircleTargetPoints.Add( circleTargetPoints[i] );
+							//failedAtCircle = false;
+						}
+					} //else {
+					  //isACircle = false;
+					  //Debug.Log( "Fail at drawing circle" );
+					  //}
+
+					//if (!testBool) {
+						//failedAtCircle = true;
+					//}
+				}
+
+				if ( !testBool ) {
+					failedAtCircle = true;
 				}
 
 				//for ( int i = 0; i < targetGridPositions.Count; i++ ) {
@@ -106,10 +138,10 @@ public class PinchTest : MonoBehaviour {
 				drawPoints.Add( new Vector3( newDrawPoint.x, newDrawPoint.y, 2 ) );
 				counter = 0.0f;
 			}
-		} else if ( drawBackground.activeInHierarchy ) {
-			drawBackground.SetActive( false );
+		} //else if ( drawBackground.activeInHierarchy ) {
+			//drawBackground.SetActive( false );
 			
-		}
+		//}
 
 		lineRenderer.positionCount = drawPoints.Count;
 		for ( int i = 0; i < drawPoints.Count; i++ ) {
@@ -118,12 +150,16 @@ public class PinchTest : MonoBehaviour {
 	}
 
 	public void Pinch() {
+		isACircle = true;
+		failedAtCircle = false;
 		pinching = true;
 	}
 
 	public void EndPinch() {
 
-		bool isACircle = true;
+		//bool isACircle = true;
+
+		//isACircle = true;
 
 		foreach (Vector2 circleTargetPoint in circleTargetPoints) {
 			if (!hitCircleTargetPoints.Contains( circleTargetPoint )) {
@@ -132,7 +168,7 @@ public class PinchTest : MonoBehaviour {
 			}
 		}
 
-		if (isACircle) {
+		if ( isACircle && !failedAtCircle ) {
 			Debug.Log( "Circle" );
 		} else {
 			Debug.Log( "Not Circle" );
@@ -142,5 +178,7 @@ public class PinchTest : MonoBehaviour {
 		collisionPoints.Clear();
 		hitCircleTargetPoints.Clear();
 		pinching = false;
+
+		drawBackground.SetActive( false );
 	}
 }
