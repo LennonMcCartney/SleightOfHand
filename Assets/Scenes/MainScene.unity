@@ -4613,11 +4613,14 @@ MonoBehaviour:
   playerCapsule: {fileID: 310651652}
   pinchDetector: {fileID: 1307536118}
   drawBackground: {fileID: 1246911687}
-  targetGridPositions: []
+  circleTargets: {fileID: 1798678174}
+  circleTargetPrefab: {fileID: 4834150986871446413, guid: bc83d9494bff1f347b5011093e4165c5,
+    type: 3}
   pinching: 0
-  hitTargetGridPositions: []
-  targetPoints: []
   drawPoints: []
+  collisionPoints: []
+  circleTargetPoints: []
+  hitCircleTargetPoints: []
 --- !u!120 &1428525406
 LineRenderer:
   serializedVersion: 2
@@ -4874,6 +4877,12 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 1246911686}
   m_SourcePrefab: {fileID: 100100000, guid: c5efc39a8aaf6e64ea40e9ad573e9b47, type: 3}
+--- !u!1 &1798678174 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5579359939405287050, guid: 3ac760a1169d8014a98d006686389230,
+    type: 3}
+  m_PrefabInstance: {fileID: 1246911685}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1804706524
 PrefabInstance:
   m_ObjectHideFlags: 0

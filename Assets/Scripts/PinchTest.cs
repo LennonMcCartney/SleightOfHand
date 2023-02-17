@@ -13,6 +13,10 @@ public class PinchTest : MonoBehaviour {
 
 	[SerializeField] private GameObject drawBackground;
 
+	[SerializeField] private GameObject circleTargets;
+
+	[SerializeField] private GameObject circleTargetPrefab;
+
 	[SerializeField] private bool pinching = false;
 
 	//[SerializeField] private List<Vector2> targetGridPositions;
@@ -32,19 +36,35 @@ public class PinchTest : MonoBehaviour {
 
 	private float counter = 0.0f;
 
+	public static float Round( float value, int digits ) {
+		float mult = Mathf.Pow( 10.0f, digits );
+		return Mathf.Round( value * mult ) / mult;
+	}
+
 	private void Start() {
 		lineRenderer = GetComponent<LineRenderer>();
 
-		circleTargetPoints = new List<Vector2>() {
-			new Vector2( 0.0f, 0.7f ),
-			new Vector2( -0.4949747f, 0.4949747f ),
-			new Vector2( -0.7f, 0.0f ),
-			new Vector2( -0.4949747f, -0.4949747f ),
-			new Vector2( 0.0f, -0.7f ),
-			new Vector2( 0.4949747f, -0.4949747f ),
-			new Vector2( 0.7f, 0.0f ),
-			new Vector2( 0.4949747f, 0.4949747f )
-		};
+		//circleTargetPoints = new List<Vector2>() {
+			//new Vector2( 0.0f, 0.7f ),
+			//new Vector2( -0.4949747f, 0.4949747f ),
+			//new Vector2( -0.7f, 0.0f ),
+			//new Vector2( -0.4949747f, -0.4949747f ),
+			//new Vector2( 0.0f, -0.7f ),
+			//new Vector2( 0.4949747f, -0.4949747f ),
+			//new Vector2( 0.7f, 0.0f ),
+			//new Vector2( 0.4949747f, 0.4949747f )
+		//};
+
+		for (int i = 0; i < 32; i++) {
+			Vector3 newCircleTargetPosition = new Vector3( Round( (float)0.7 * Mathf.Sin( (Mathf.PI / 16) * i ), 6 ), Round( (float)0.7 * Mathf.Cos( (Mathf.PI / 16) * i ), 6 ), 0 );
+
+			GameObject newCircleTarget = Instantiate( circleTargetPrefab );//, newCircleTargetPosition, Quaternion.identity );
+			newCircleTarget.transform.parent = circleTargets.transform;
+			newCircleTarget.transform.localPosition = newCircleTargetPosition;
+			newCircleTarget.transform.localScale = new Vector3( 0.2f, 0.2f, 0.2f );
+
+			circleTargetPoints.Add( newCircleTargetPosition );
+		}
 
 		//for ( float j = 0.7f; j >= -0.7f; j -= 0.2f ) {
 		//for ( float i = -0.7f; i <= 0.7f; i += 0.2f ) {
