@@ -7,38 +7,38 @@ using UnityEngine;
 
 public class DrawOnPinch : MonoBehaviour
 {
+	[SerializeField] private float targetScale;
+
+	[SerializeField] private float circleTargetsRadius;
 
 	[SerializeField] private GameObject playerCapsule;
 
 	[SerializeField] private PinchDetector pinchDetector;
 
-	[SerializeField] private GameObject drawBackground;
+	//[SerializeField] private GameObject drawBackground;
 
 	[SerializeField] private GameObject circleTargets;
+	[SerializeField] private GameObject squareTargets;
+	[SerializeField] private GameObject triangeTargets;
 
-	[SerializeField] private GameObject circleTargetPrefab;
+	[SerializeField] private GameObject targetPrefab;
 
-	[SerializeField] private bool pinching = false;
+	private bool pinching = false;
 
-	//[SerializeField] private List<Vector2> targetGridPositions;
-	//[SerializeField] private Vector2 targetGridSize = new Vector2( 4, 4 );
+	private List<Vector3> drawPoints = new List<Vector3>();
+	private List<Vector2> collisionPoints = new List<Vector2>();
+	
+	private List<Vector2> circleTargetPoints = new List<Vector2>();
+	private List<Vector2> hitCircleTargetPoints = new List<Vector2>();
 
-	//[SerializeField] private List<Vector2> hitTargetGridPositions;
-	//[SerializeField] private List<Vector2> targetPoints;
-
-	[SerializeField] private List<Vector3> drawPoints;
-
-	[SerializeField] private List<Vector2> collisionPoints;
-
-	[SerializeField] private List<Vector2> circleTargetPoints;
-
-	[SerializeField] private List<Vector2> hitCircleTargetPoints;
+	private List<Vector2> squareTargetPoints = new List<Vector2>();
+	private List<Vector2> hitSquareTargetPoints = new List<Vector2>();
 
 	LineRenderer lineRenderer;
 
 	private float counter = 0.0f;
 
-	private bool isACircle = false;
+	private bool hitAllCircleTargets = false;
 
 	private bool failedAtCircle = false;
 
@@ -52,47 +52,23 @@ public class DrawOnPinch : MonoBehaviour
 	{
 		lineRenderer = GetComponent<LineRenderer>();
 
-		drawBackground.SetActive(false);
+		circleTargets.SetActive(false);
+		squareTargets.SetActive(false);
+		triangeTargets.SetActive(false);
 
-		//circleTargetPoints = new List<Vector2>() {
-		//new Vector2( 0.0f, 0.7f ),
-		//new Vector2( -0.4949747f, 0.4949747f ),
-		//new Vector2( -0.7f, 0.0f ),
-		//new Vector2( -0.4949747f, -0.4949747f ),
-		//new Vector2( 0.0f, -0.7f ),
-		//new Vector2( 0.4949747f, -0.4949747f ),
-		//new Vector2( 0.7f, 0.0f ),
-		//new Vector2( 0.4949747f, 0.4949747f )
-		//};
+		GenerateCircleTargets();
+		GenerateSquareTargets();
+		GenerateTriangleTargets();
 
-		for (int i = 0; i < 32; i++)
-		{
-			Vector3 newCircleTargetPosition = new Vector3(Round((float)0.5 * Mathf.Sin((Mathf.PI / 16) * i), 6), Round((float)0.5 * Mathf.Cos((Mathf.PI / 16) * i), 6), 0);
-
-			GameObject newCircleTarget = Instantiate(circleTargetPrefab);//, newCircleTargetPosition, Quaternion.identity );
-			newCircleTarget.transform.parent = circleTargets.transform;
-			newCircleTarget.transform.localPosition = newCircleTargetPosition;
-			newCircleTarget.transform.localScale = new Vector3(0.4f, 0.4f, 0.4f);
-
-			circleTargetPoints.Add(newCircleTargetPosition);
-		}
-
-		//for ( float j = 0.7f; j >= -0.7f; j -= 0.2f ) {
-		//for ( float i = -0.7f; i <= 0.7f; i += 0.2f ) {
-		//targetGridPositions.Add( new Vector2( Mathf.Round( i * 10.0f ) * 0.1f, Mathf.Round( j * 10.0f ) * 0.1f ) );
-		//}
-		//}
-
-		//for ( int i = 0; i < targetGridPositions.Count; i++ ) {
-		//Debug.Log( targetGridPositions[i] );
-		//}
 	}
 
 	public void FixedUpdate()
 	{
 		if (pinching)
 		{
-			drawBackground.SetActive(true);
+			circleTargets.SetActive(true);
+			squareTargets.SetActive(true);
+			triangeTargets.SetActive(true);
 
 			counter += Time.deltaTime;
 			if (counter > 0.01f)
@@ -103,56 +79,12 @@ public class DrawOnPinch : MonoBehaviour
 				newCollisionPoint.y -= 1.5f;
 				collisionPoints.Add(newCollisionPoint);
 
-				//isACircle = false;
-
-				bool testBool = false;
-
-				//failedAtCircle = true;
-
-				//isACircle = false;
-
-				for (int i = 0; i < circleTargetPoints.Count; i++)
-				{
-					//bool testBool = false;
-					if (Vector2.Distance(circleTargetPoints[i], newCollisionPoint) < 0.2f)
-					{
-						testBool = true;
-						if (!hitCircleTargetPoints.Contains(circleTargetPoints[i]))
-						{
-							hitCircleTargetPoints.Add(circleTargetPoints[i]);
-							//failedAtCircle = false;
-						}
-					} //else {
-					  //isACircle = false;
-					  //Debug.Log( "Fail at drawing circle" );
-					  //}
-
-					//if (!testBool) {
-					//failedAtCircle = true;
-					//}
-				}
-
-				if (!testBool)
-				{
-					failedAtCircle = true;
-				}
-
-				//for ( int i = 0; i < targetGridPositions.Count; i++ ) {
-				//if ( Vector2.Distance( targetGridPositions[i], newTargetPoint ) < 0.1f ) {
-				//if ( !hitTargetGridPositions.Contains( targetGridPositions[i] ) ) {
-				//hitTargetGridPositions.Add( targetGridPositions[i] );
-				//}
-				//Debug.Log( Vector2.Distance( targetGridPositions[0], newTargetPoint ) + " from " + targetGridPositions[i] );
-				//}
-				//}
+				CheckCircle(newCollisionPoint);
 
 				drawPoints.Add(new Vector3(newDrawPoint.x, newDrawPoint.y, 2));
 				counter = 0.0f;
 			}
-		} //else if ( drawBackground.activeInHierarchy ) {
-		  //drawBackground.SetActive( false );
-
-		//}
+		}
 
 		lineRenderer.positionCount = drawPoints.Count;
 		for (int i = 0; i < drawPoints.Count; i++)
@@ -161,30 +93,108 @@ public class DrawOnPinch : MonoBehaviour
 		}
 	}
 
+	private void GenerateCircleTargets() {
+		for (int i = 0; i < 32; i++) {
+			Vector3 newCircleTargetPosition = new Vector3(Round(circleTargetsRadius * Mathf.Sin((Mathf.PI / 16) * i), 6), Round(circleTargetsRadius * Mathf.Cos((Mathf.PI / 16) * i), 6), 0);
+
+			GameObject newCircleTarget = Instantiate(targetPrefab);
+			newCircleTarget.transform.parent = circleTargets.transform;
+			newCircleTarget.transform.localPosition = newCircleTargetPosition;
+			newCircleTarget.transform.localScale = new Vector3(targetScale, targetScale, targetScale);
+
+			circleTargetPoints.Add(newCircleTargetPosition);
+		}
+	}
+
+	private void GenerateSquareTargets() {
+		int x = -1;
+		int y = -1;
+
+		//point to the right
+		int dx = 1;
+		int dy = 0;
+
+		for (int side = 0; side < 4; ++side)
+		{
+			for (int i = 1; i < 10; ++i)
+			{
+				Vector3 newCircleTargetPosition = new Vector3( x, y );
+
+				GameObject newCircleTarget = Instantiate(targetPrefab);
+				newCircleTarget.transform.parent = circleTargets.transform;
+				newCircleTarget.transform.localPosition = newCircleTargetPosition;
+				newCircleTarget.transform.localScale = new Vector3(targetScale, targetScale, targetScale);
+
+				circleTargetPoints.Add(newCircleTargetPosition);
+
+				x += dx;
+				y += dy;
+			}
+			//turn right
+			int t = dx;
+			dx = -dy;
+			dy = t;
+		}
+
+		//for (int i = 0; i < 4; i++ ) {
+		//	for (int j = 0; j < 10; j++) {
+		//		Vector3 newSquareTargetPosition = new Vector3(i, j);
+
+		//		GameObject newSquareTarget = Instantiate(targetPrefab);
+		//		newSquareTarget.transform.parent = squareTargets.transform;
+		//		newSquareTarget.transform.localPosition = newSquareTargetPosition;
+		//		newSquareTarget.transform.localScale = new Vector3(targetScale, targetScale, targetScale);
+
+		//		squareTargetPoints.Add(newSquareTargetPosition);
+		//          }
+		//}
+	}
+
+	private void GenerateTriangleTargets() {
+    }
+
+	private void CheckCircle( Vector2 newCollisionPoint )
+    {
+		failedAtCircle = true;
+
+		for (int i = 0; i < circleTargetPoints.Count; i++)
+		{
+			//bool testBool = false;
+			if (Vector2.Distance(circleTargetPoints[i], newCollisionPoint) < 0.2f)
+			{
+				failedAtCircle = false;
+				if (!hitCircleTargetPoints.Contains(circleTargetPoints[i]))
+				{
+					hitCircleTargetPoints.Add(circleTargetPoints[i]);
+				}
+			}
+		}
+
+		if (failedAtCircle)
+		{
+			circleTargets.SetActive(false);
+		}
+	}
+
 	public void Pinch()
 	{
-		isACircle = true;
+		hitAllCircleTargets = true;
 		failedAtCircle = false;
 		pinching = true;
 	}
 
 	public void EndPinch()
 	{
-
-		//bool isACircle = true;
-
-		//isACircle = true;
-
 		foreach (Vector2 circleTargetPoint in circleTargetPoints)
 		{
 			if (!hitCircleTargetPoints.Contains(circleTargetPoint))
 			{
-				isACircle = false;
+				hitAllCircleTargets = false;
 				break;
 			}
 		}
 
-		if (isACircle && !failedAtCircle)
+		if (hitAllCircleTargets && !failedAtCircle)
 		{
 			Debug.Log("Circle");
 		}
@@ -198,6 +208,8 @@ public class DrawOnPinch : MonoBehaviour
 		hitCircleTargetPoints.Clear();
 		pinching = false;
 
-		drawBackground.SetActive(false);
+		circleTargets.SetActive(false);
+		squareTargets.SetActive(false);
+		triangeTargets.SetActive(false);
 	}
 }

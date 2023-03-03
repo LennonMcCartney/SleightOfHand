@@ -4419,7 +4419,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &1246911687 stripped
 GameObject:
-  m_CorrespondingSourceObject: {fileID: 2497378226057020463, guid: 3ac760a1169d8014a98d006686389230,
+  m_CorrespondingSourceObject: {fileID: 783041545536387236, guid: 3ac760a1169d8014a98d006686389230,
+    type: 3}
+  m_PrefabInstance: {fileID: 1246911685}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1246911688 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6145622591118232145, guid: 3ac760a1169d8014a98d006686389230,
     type: 3}
   m_PrefabInstance: {fileID: 1246911685}
   m_PrefabAsset: {fileID: 0}
@@ -4455,8 +4461,8 @@ MonoBehaviour:
   OnActivate:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1428525405}
-        m_TargetAssemblyTypeName: PinchTest, Assembly-CSharp
+      - m_Target: {fileID: 1428525407}
+        m_TargetAssemblyTypeName: DrawOnPinch, Assembly-CSharp
         m_MethodName: Pinch
         m_Mode: 1
         m_Arguments:
@@ -4470,8 +4476,8 @@ MonoBehaviour:
   OnDeactivate:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1428525405}
-        m_TargetAssemblyTypeName: PinchTest, Assembly-CSharp
+      - m_Target: {fileID: 1428525407}
+        m_TargetAssemblyTypeName: DrawOnPinch, Assembly-CSharp
         m_MethodName: EndPinch
         m_Mode: 1
         m_Arguments:
@@ -4574,10 +4580,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1428525404}
-  - component: {fileID: 1428525405}
+  - component: {fileID: 1428525407}
   - component: {fileID: 1428525406}
   m_Layer: 8
-  m_Name: PinchTest
+  m_Name: DrawOnPinch
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4598,29 +4604,6 @@ Transform:
   m_Father: {fileID: 1357554095}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1428525405
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1428525403}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e10296bbb6b114143bbb7d0ccf10f14b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  playerCapsule: {fileID: 310651652}
-  pinchDetector: {fileID: 1307536118}
-  drawBackground: {fileID: 1246911687}
-  circleTargets: {fileID: 1798678174}
-  circleTargetPrefab: {fileID: 4834150986871446413, guid: bc83d9494bff1f347b5011093e4165c5,
-    type: 3}
-  pinching: 0
-  drawPoints: []
-  collisionPoints: []
-  circleTargetPoints: []
-  hitCircleTargetPoints: []
 --- !u!120 &1428525406
 LineRenderer:
   serializedVersion: 2
@@ -4722,6 +4705,27 @@ LineRenderer:
   m_UseWorldSpace: 0
   m_Loop: 0
   m_ApplyActiveColorSpace: 1
+--- !u!114 &1428525407
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1428525403}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 228f7514b48ca90498e044681f387e02, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targetScale: 0.3
+  circleTargetsRadius: 0.7
+  playerCapsule: {fileID: 310651652}
+  pinchDetector: {fileID: 1307536118}
+  circleTargets: {fileID: 1798678174}
+  squareTargets: {fileID: 1246911688}
+  triangeTargets: {fileID: 1246911687}
+  targetPrefab: {fileID: 4834150986871446413, guid: bc83d9494bff1f347b5011093e4165c5,
+    type: 3}
 --- !u!1 &1644184916 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4196411269979556604, guid: 96dd6d300be37b645bb0af42b0c30f2e,
