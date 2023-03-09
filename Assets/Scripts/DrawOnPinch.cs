@@ -5,8 +5,8 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class DrawOnPinch : MonoBehaviour
-{
+public class DrawOnPinch : MonoBehaviour {
+
 	[SerializeField] private float targetScale;
 
 	[SerializeField] private float circleTargetsRadius;
@@ -47,6 +47,23 @@ public class DrawOnPinch : MonoBehaviour
 		float mult = Mathf.Pow(10.0f, digits);
 		return Mathf.Round(value * mult) / mult;
 	}
+
+	private void FireSpell( Shape spellShape )
+    {
+		Debug.Log( "Fire " + spellShape );
+
+		RaycastHit raycastHit;
+
+		if ( Physics.Raycast( transform.position, transform.position + transform.forward * 3.0f, out raycastHit ) )
+        {
+			Enemy hitEnemy;
+			if ( raycastHit.transform.gameObject.TryGetComponent<Enemy>(out hitEnemy) )
+            {
+				hitEnemy.Hit();
+            }
+        }
+
+    }
 
 	private void Start()
 	{
@@ -196,11 +213,7 @@ public class DrawOnPinch : MonoBehaviour
 
 		if (hitAllCircleTargets && !failedAtCircle)
 		{
-			Debug.Log("Circle");
-		}
-		else
-		{
-			Debug.Log("Not Circle");
+			FireSpell( Shape.CIRCLE );
 		}
 
 		drawPoints.Clear();
