@@ -10,7 +10,8 @@ public class EnemySpawnPoint : MonoBehaviour
 
     public void SpawnHere( GameObject enemyPrefab )
     {
-        GameObject newEnemy = Instantiate( enemyPrefab, transform );
+        GameObject newEnemyObject = Instantiate( enemyPrefab, transform );
+		//Enemy newEnemy = newEnemyObject.GetComponent<Enemy>();
 
     }
 

@@ -53,15 +53,13 @@ public class DrawOnPinch : MonoBehaviour {
 		Debug.Log( "Fire " + spellShape );
 
 		RaycastHit raycastHit;
-
 		if ( Physics.Raycast( transform.position, transform.position + transform.forward * 3.0f, out raycastHit ) )
         {
 			Enemy hitEnemy;
-			if ( raycastHit.transform.gameObject.TryGetComponent<Enemy>(out hitEnemy) )
-            {
-				hitEnemy.Hit();
-            }
-        }
+			if ( raycastHit.transform.gameObject.TryGetComponent<Enemy>( out hitEnemy ) ) {
+				hitEnemy.Hit( spellShape );
+			}
+		}
 
     }
 
@@ -74,8 +72,8 @@ public class DrawOnPinch : MonoBehaviour {
 		triangeTargets.SetActive(false);
 
 		GenerateCircleTargets();
-		GenerateSquareTargets();
-		GenerateTriangleTargets();
+		//GenerateSquareTargets();
+		//GenerateTriangleTargets();
 
 	}
 
