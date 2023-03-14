@@ -15,7 +15,7 @@ public class EnemySpawner : MonoBehaviour
 
     private void Start()
     {
-        enemySpawnPoints = GameObject.FindObjectsOfType<EnemySpawnPoint>();
+        enemySpawnPoints = FindObjectsOfType<EnemySpawnPoint>();
 
     }
 
@@ -23,9 +23,8 @@ public class EnemySpawner : MonoBehaviour
     {
         spawnCounter += Time.deltaTime;
 
-        if ( spawnCounter > spawnInterval)
+        if ( spawnCounter > spawnInterval )
         {
-
             foreach ( EnemySpawnPoint enemySpawnPoint in enemySpawnPoints )
             {
                 enemySpawnPoint.SpawnHere(enemyPrefabs[0]);
