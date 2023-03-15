@@ -2,18 +2,26 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+//[ExecuteInEditMode]
 public class EnemySpawner : MonoBehaviour {
+
+	public int spawnerId;
+
+	[SerializeField] private GameObject spawnPointPrefab;
+
+	[SerializeField] private GameObject[] spawnPoints;
+
 	[SerializeField] private List<GameObject> enemyPrefabs;
 
 	[SerializeField] private float spawnInterval = 5.0f;
 	private float spawnCounter = 0.0f;
 
-	[SerializeField] private EnemySpawnPoint[] enemySpawnPoints;
+	public EnemySpawnManager enemySpawnManager;
 
-	//[SerializeField] private List<GameObject> spawnedEnemies;
+	[SerializeField] private List<GameObject> spawnedEnemies;
 
 	private void Start() {
-		enemySpawnPoints = FindObjectsOfType<EnemySpawnPoint>();
+		FindSpawnPoints();
 
 	}
 
@@ -21,13 +29,37 @@ public class EnemySpawner : MonoBehaviour {
 		spawnCounter += Time.deltaTime;
 
 		if ( spawnCounter > spawnInterval ) {
-			foreach ( EnemySpawnPoint enemySpawnPoint in enemySpawnPoints ) {
-				enemySpawnPoint.SpawnHere( enemyPrefabs[ Random.Range( 0, enemyPrefabs.Count ) ] );
+			foreach ( GameObject spawnPoint in spawnPoints ) {
+
+				GameObject newEnemy = Instantiate( enemyPrefabs[ Random.Range( 0, enemyPrefabs.Count ) ], spawnPoint.transform );
+				newEnemy.transform.parent = transform.parent;
+				spawnedEnemies.Add( newEnemy );
+
 			}
 
 			//spawnCounter = 0.0f;
 			spawnCounter = -1000000.0f;
 		}
 	}
+
+	public void FindSpawnPoints() {
+		spawnPoints = GameObject.FindGameObjectsWithTag( "SpawnPoint" );
+
+	}
+
+	public void CreateSpawnPoint() {
+		GameObject newSpawnPoint = Instantiate( spawnPointPrefab );
+		newSpawnPoint.transform.parent = transform;
+
+		FindSpawnPoints();
+
+		//enemySpawnPoints = FindObjectsOfType<EnemySpawnPoint>();
+	}
+
+	//private void OnDestroy() {
+		//enemySpawnManager.enemySpawners.Remove(this);
+		//enemySpawnManager.RefreshEnemySpawners();
+
+	//}
 
 }

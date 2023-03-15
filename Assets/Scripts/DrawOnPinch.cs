@@ -2,7 +2,6 @@ using Leap.Unity;
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 
 public class DrawOnPinch : MonoBehaviour {
@@ -57,7 +56,7 @@ public class DrawOnPinch : MonoBehaviour {
         {
 			Enemy hitEnemy;
 			if ( raycastHit.transform.gameObject.TryGetComponent<Enemy>( out hitEnemy ) ) {
-				hitEnemy.Hit( spellShape );
+				hitEnemy.HitBySpell( spellShape );
 			}
 		}
 

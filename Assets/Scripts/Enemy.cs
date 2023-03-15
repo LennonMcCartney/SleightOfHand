@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public enum Shape
 {
@@ -11,48 +12,53 @@ public enum Shape
 
 public class Enemy : MonoBehaviour
 {
-	//[SerializeField] private SpriteRenderer spriteRenderer;
-	[SerializeField] private Animator animator;
-
 	private Camera mainCamera;
+
+	private NavMeshAgent navMeshAgent;
+
+	private Animator animator;
 
 	[SerializeField] private Shape shape;
 
 	private void Start() {
 		mainCamera= Camera.main;
 
+		navMeshAgent = GetComponent<NavMeshAgent>();
+
+		animator = GetComponentInChildren<Animator>();
+
 		switch ( shape ) {
 			case Shape.CIRCLE:
 				animator.Play( "CircleMonster_Movement" );
 				break;
 			case Shape.SQUARE:
+				animator.Play( "SquareMonster_Movement" );
 				break;
 			case Shape.TRIANGLE:
+				animator.Play( "TriangleMonster_Movement" );
 				break;
 			default:
+				Debug.Log( "Invalid shape > " + shape );
 				break;
 		}
-
-		//animator.Play("CircleMonster_Movement");
 
 	}
 
 	private void Update() {
 		transform.LookAt( mainCamera.transform );
 		transform.Rotate( 0, 180, 0 );
-		Vector3 newEulerAngles = transform.eulerAngles;
-		newEulerAngles.x = 0;
-		newEulerAngles.z = 0;
+		Vector3 newEulerAngles = new Vector3();
+		newEulerAngles.y = transform.eulerAngles.y;
 		transform.eulerAngles = newEulerAngles;
 
 	}
 
-	public void Hit( Shape spellShape ) {
+	public void HitBySpell( Shape spellShape ) {
+
 		if ( spellShape == shape ) {
+			Destroy( gameObject );
 
 		}
-
-		Destroy(gameObject);
 
 	}
 }

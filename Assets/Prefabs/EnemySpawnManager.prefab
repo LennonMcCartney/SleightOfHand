@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &553343641385979717
+--- !u!1 &1212148469456992324
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,22 +8,22 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 553343641385979716}
-  - component: {fileID: 553343641385979719}
+  - component: {fileID: 8024291699228154497}
+  - component: {fileID: 2448012147809353704}
   m_Layer: 0
-  m_Name: EnemySpawner
+  m_Name: EnemySpawnManager
   m_TagString: Untagged
-  m_Icon: {fileID: 7250588514170254948, guid: 0000000000000000d000000000000000, type: 0}
+  m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &553343641385979716
+--- !u!4 &8024291699228154497
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 553343641385979717}
+  m_GameObject: {fileID: 1212148469456992324}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -32,24 +32,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &553343641385979719
+--- !u!114 &2448012147809353704
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 553343641385979717}
+  m_GameObject: {fileID: 1212148469456992324}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e59a8e8e76925964688b8ed1c0b4cb6a, type: 3}
+  m_Script: {fileID: 11500000, guid: f45b2d889d038cc4385b414cea7d245f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spawnerId: 0
-  spawnPointPrefab: {fileID: 8101438925236114656, guid: 6a4fed4bdd9efbb438d4aa91fa5bcde0,
+  enemySpawnerPrefab: {fileID: 553343641385979717, guid: 1e5ef3aaa6468d845beb7b1cc059df36,
     type: 3}
-  spawnPoints: []
-  enemyPrefabs:
-  - {fileID: 8997264822297686713, guid: 387e92ae88cf42a4d8cfc426dcd99b5c, type: 3}
-  spawnInterval: 0
-  enemySpawnManager: {fileID: 0}
-  spawnedEnemies: []
+  enemySpawners: []
