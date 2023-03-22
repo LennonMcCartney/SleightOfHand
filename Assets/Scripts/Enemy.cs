@@ -12,6 +12,8 @@ public enum Shape
 
 public class Enemy : MonoBehaviour
 {
+	private float speed = 1.0f;
+
 	private Camera mainCamera;
 
 	private NavMeshAgent navMeshAgent;
@@ -20,12 +22,16 @@ public class Enemy : MonoBehaviour
 
 	[SerializeField] private Shape shape;
 
+	private GameObject player;
+
 	private void Start() {
 		mainCamera= Camera.main;
 
 		navMeshAgent = GetComponent<NavMeshAgent>();
 
 		animator = GetComponentInChildren<Animator>();
+
+		player = GameObject.FindGameObjectWithTag("Player");
 
 		switch ( shape ) {
 			case Shape.CIRCLE:
@@ -42,15 +48,23 @@ public class Enemy : MonoBehaviour
 				break;
 		}
 
+		navMeshAgent.speed = speed;
+
 	}
 
-	private void Update() {
+	private void FixedUpdate() {
 		transform.LookAt( mainCamera.transform );
 		transform.Rotate( 0, 180, 0 );
 		Vector3 newEulerAngles = new Vector3();
 		newEulerAngles.y = transform.eulerAngles.y;
 		transform.eulerAngles = newEulerAngles;
 
+		navMeshAgent.SetDestination( player.transform.position );
+
+	}
+
+	public void SetSpeed( float newSpeed ) {
+		speed = newSpeed;
 	}
 
 	public void HitBySpell( Shape spellShape ) {

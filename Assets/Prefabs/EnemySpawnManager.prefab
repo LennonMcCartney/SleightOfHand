@@ -46,4 +46,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemySpawnerPrefab: {fileID: 553343641385979717, guid: 1e5ef3aaa6468d845beb7b1cc059df36,
     type: 3}
+  spawnPointPrefab: {fileID: 8101438925236114656, guid: 6a4fed4bdd9efbb438d4aa91fa5bcde0,
+    type: 3}
   enemySpawners: []

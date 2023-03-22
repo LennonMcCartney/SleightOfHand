@@ -6,6 +6,7 @@ using UnityEngine.Events;
 public class EnemySpawnManager : MonoBehaviour {
 
 	[SerializeField] private GameObject enemySpawnerPrefab;
+	[SerializeField] private GameObject spawnPointPrefab;
 
 	public List<EnemySpawner> enemySpawners = new List<EnemySpawner>();
 
@@ -22,6 +23,7 @@ public class EnemySpawnManager : MonoBehaviour {
 		EnemySpawner newEnemySpawner = newEnemySpawnerObject.GetComponent<EnemySpawner>();
 
 		newEnemySpawner.enemySpawnManager = this;
+		newEnemySpawner.spawnPointPrefab = spawnPointPrefab;
 
 		enemySpawners.Add( newEnemySpawner );
 
@@ -31,7 +33,7 @@ public class EnemySpawnManager : MonoBehaviour {
 
 	public void RefreshEnemySpawners() {
 		for ( int i = 0; i < enemySpawners.Count; i++ ) {
-			enemySpawners[i].spawnerId = i;
+			//enemySpawners[i].spawnerId = i;
 
 		}
 	}
