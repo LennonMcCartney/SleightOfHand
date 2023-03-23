@@ -114,6 +114,7 @@ public class DrawOnPinch : MonoBehaviour {
 			GameObject newCircleTarget = Instantiate(targetPrefab);
 			newCircleTarget.transform.parent = circleTargets.transform;
 			newCircleTarget.transform.localPosition = newCircleTargetPosition;
+			newCircleTarget.transform.forward = playerCapsule.transform.forward;
 			newCircleTarget.transform.localScale = new Vector3(targetScale, targetScale, targetScale);
 
 			circleTargetPoints.Add(newCircleTargetPosition);
