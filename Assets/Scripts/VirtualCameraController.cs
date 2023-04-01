@@ -1,9 +1,12 @@
 using Cinemachine;
+using LeapInternal;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class VirtualCameraController : MonoBehaviour {
+
+	Enemy[] enemies;
 
 	CinemachineVirtualCamera virtualCamera;
 
@@ -20,6 +23,35 @@ public class VirtualCameraController : MonoBehaviour {
 
 	private void Update() {
 		trackedDolly.m_PathPosition += Time.deltaTime * speed;
+
+		Enemy closestEnemy = GetClosestEnemy();
+		if ( closestEnemy ) {
+			virtualCamera.LookAt = GetClosestEnemy().transform;
+
+		}
+
+	}
+
+	private Enemy GetClosestEnemy() {
+
+		enemies = FindObjectsOfType<Enemy>();
+
+		Enemy closestEnemy = null;
+
+		float closestDistanceSquared = Mathf.Infinity;
+
+		foreach ( Enemy enemy in enemies ) {
+
+			float distanceSquared = Vector3.Distance( enemy.transform.position, transform.position );
+
+			if ( distanceSquared < closestDistanceSquared ) {
+				closestDistanceSquared = distanceSquared;
+				closestEnemy = enemy;
+			}
+
+		}
+
+		return closestEnemy;
 
 	}
 

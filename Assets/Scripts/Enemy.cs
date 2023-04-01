@@ -22,7 +22,7 @@ public class Enemy : MonoBehaviour
 
 	[SerializeField] private Shape shape;
 
-	private GameObject player;
+	private Player player;
 
 	private void Start() {
 		mainCamera= Camera.main;
@@ -31,7 +31,7 @@ public class Enemy : MonoBehaviour
 
 		animator = GetComponentInChildren<Animator>();
 
-		player = GameObject.FindGameObjectWithTag("Player");
+		player = FindObjectOfType<Player>();
 
 		switch ( shape ) {
 			case Shape.CIRCLE:
@@ -52,7 +52,7 @@ public class Enemy : MonoBehaviour
 
 	}
 
-	private void FixedUpdate() {
+	private void Update() {
 		transform.LookAt( mainCamera.transform );
 		transform.Rotate( 0, 180, 0 );
 		Vector3 newEulerAngles = new Vector3();
