@@ -6,13 +6,15 @@ using UnityEngine;
 
 public class VirtualCameraController : MonoBehaviour {
 
-	Enemy[] enemies;
+	[HideInInspector] public bool shouldMove = true;
 
-	CinemachineVirtualCamera virtualCamera;
+	private Enemy[] enemies;
 
-	CinemachineTrackedDolly trackedDolly;
+	private CinemachineVirtualCamera virtualCamera;
 
-	[SerializeField] float speed;
+	private CinemachineTrackedDolly trackedDolly;
+
+	[HideInInspector] public float speed;
 
 	private void Start() {
 		virtualCamera = GetComponent<CinemachineVirtualCamera>();
@@ -22,7 +24,10 @@ public class VirtualCameraController : MonoBehaviour {
 	}
 
 	private void Update() {
-		trackedDolly.m_PathPosition += Time.deltaTime * speed;
+
+		if ( shouldMove ) {
+			trackedDolly.m_PathPosition += Time.deltaTime * speed;
+		}
 
 		Enemy closestEnemy = GetClosestEnemy();
 		if ( closestEnemy ) {

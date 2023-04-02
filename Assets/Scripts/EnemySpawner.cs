@@ -2,12 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-//[ExecuteInEditMode]
 public class EnemySpawner : MonoBehaviour {
 
-	//public int spawnerId;
+	private bool reachedByPlayer = false;
 
-	[SerializeField] private int numOfEnemies = 1;
+	private Player player;
+
+	[SerializeField] private int numOfEnemies;
 
 	private bool spawnedAllEnemies = false;
 
@@ -16,7 +17,7 @@ public class EnemySpawner : MonoBehaviour {
 
 	[SerializeField] private float enemySpeed;
 
-	private GameObject[] spawnPoints;
+	private SpawnPoint[] spawnPoints;
 
 	[SerializeField] private List<GameObject> enemyPrefabs;
 
@@ -29,31 +30,52 @@ public class EnemySpawner : MonoBehaviour {
 	private List<GameObject> spawnedEnemies = new List<GameObject>();
 
 	private void Start() {
+
+		player = FindObjectOfType<Player>();
+
 		FindSpawnPoints();
 
 	}
 
 	private void Update() {
 
-		if ( spawnedEnemies.Count < numOfEnemies ) {
+		if ( reachedByPlayer && spawnedEnemies.Count < numOfEnemies ) {
 			spawnCounter += Time.deltaTime;
 			if (spawnCounter > spawnInterval) {
 				Debug.Log(spawnedEnemies.Count);
-				foreach (GameObject spawnPoint in spawnPoints) {
-					GameObject newEnemy = Instantiate( enemyPrefabs[ Random.Range( 0, enemyPrefabs.Count ) ], spawnPoint.transform );
-					newEnemy.GetComponent<Enemy>().SetSpeed( enemySpeed );
+				foreach ( SpawnPoint spawnPoint in spawnPoints ) {
+					GameObject newEnemyObject = Instantiate( enemyPrefabs[ Random.Range( 0, enemyPrefabs.Count ) ], spawnPoint.transform );
+					Enemy newEnemy = newEnemyObject.GetComponent<Enemy>();
+					newEnemy.spawner = this;
+					newEnemy.SetSpeed( enemySpeed );
 					newEnemy.transform.parent = transform.parent;
-					spawnedEnemies.Add( newEnemy );
+					spawnedEnemies.Add( newEnemyObject );
 
 				}
 
 				spawnCounter = 0.0f;
 			}
 		}
+
+		if ( reachedByPlayer && spawnedEnemies.Count == 0 ) {
+			player.virtualCameraController.shouldMove = true;
+		}
+	}
+
+	private void OnTriggerEnter( Collider other ) {
+
+		Player player;
+		if ( other.TryGetComponent<Player>( out player ) ) {
+			reachedByPlayer = true;
+			player.virtualCameraController.shouldMove = false;
+		}
 	}
 
 	public void FindSpawnPoints() {
-		spawnPoints = GameObject.FindGameObjectsWithTag( "SpawnPoint" );
+
+		spawnPoints = GetComponentsInChildren<SpawnPoint>();
+
+		//spawnPoints = GameObject.FindGameObjectsWithTag( "SpawnPoint" );
 
 	}
 
@@ -64,6 +86,10 @@ public class EnemySpawner : MonoBehaviour {
 		FindSpawnPoints();
 
 		//enemySpawnPoints = FindObjectsOfType<EnemySpawnPoint>();
+	}
+
+	public void DestroyEnemy( Enemy destroyedEnemy ) {
+		Destroy( destroyedEnemy );
 	}
 
 	//private void OnDestroy() {

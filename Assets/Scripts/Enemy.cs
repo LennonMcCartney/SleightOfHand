@@ -24,6 +24,9 @@ public class Enemy : MonoBehaviour
 
 	private Player player;
 
+	[HideInInspector]
+	public EnemySpawner spawner;
+
 	private void Start() {
 		mainCamera= Camera.main;
 
@@ -70,7 +73,8 @@ public class Enemy : MonoBehaviour
 	public void HitBySpell( Shape spellShape ) {
 
 		if ( spellShape == shape ) {
-			Destroy( gameObject );
+			spawner.DestroyEnemy( this );
+			//Destroy( gameObject );
 
 		}
 

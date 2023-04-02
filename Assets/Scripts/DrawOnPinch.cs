@@ -10,11 +10,9 @@ public class DrawOnPinch : MonoBehaviour {
 
 	[SerializeField] private float circleTargetsRadius;
 
-	[SerializeField] private GameObject playerCapsule;
+	[SerializeField] private GameObject player;
 
 	[SerializeField] private PinchDetector pinchDetector;
-
-	//[SerializeField] private GameObject drawBackground;
 
 	[SerializeField] private GameObject circleTargets;
 	[SerializeField] private GameObject squareTargets;
@@ -114,7 +112,7 @@ public class DrawOnPinch : MonoBehaviour {
 			GameObject newCircleTarget = Instantiate(targetPrefab);
 			newCircleTarget.transform.parent = circleTargets.transform;
 			newCircleTarget.transform.localPosition = newCircleTargetPosition;
-			newCircleTarget.transform.forward = playerCapsule.transform.forward;
+			newCircleTarget.transform.forward = player.transform.forward;
 			newCircleTarget.transform.localScale = new Vector3(targetScale, targetScale, targetScale);
 
 			circleTargetPoints.Add(newCircleTargetPosition);

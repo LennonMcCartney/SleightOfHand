@@ -4599,6 +4599,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fc692442d638bb44d8f1b5f3844d0bc2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  virtualCameraController: {fileID: 0}
+  speed: 0
 --- !u!1 &1387116054 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1934889825687710725, guid: 96dd6d300be37b645bb0af42b0c30f2e,
@@ -4833,7 +4835,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   targetScale: 0.3
   circleTargetsRadius: 0.7
-  playerCapsule: {fileID: 310651652}
+  player: {fileID: 310651652}
   pinchDetector: {fileID: 1307536118}
   circleTargets: {fileID: 1798678174}
   squareTargets: {fileID: 1246911688}
