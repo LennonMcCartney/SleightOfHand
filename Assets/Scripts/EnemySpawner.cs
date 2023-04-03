@@ -10,7 +10,7 @@ public class EnemySpawner : MonoBehaviour {
 
 	[SerializeField] private int numOfEnemies;
 
-	private bool spawnedAllEnemies = false;
+	private bool killedAllEnemies = false;
 
 	[SerializeField] private float spawnInterval = 5.0f;
 	private float spawnCounter = 0.0f;
@@ -57,7 +57,7 @@ public class EnemySpawner : MonoBehaviour {
 			}
 		}
 
-		if ( reachedByPlayer && spawnedEnemies.Count == 0 ) {
+		if ( killedAllEnemies ) {
 			player.virtualCameraController.shouldMove = true;
 		}
 	}
@@ -75,8 +75,6 @@ public class EnemySpawner : MonoBehaviour {
 
 		spawnPoints = GetComponentsInChildren<SpawnPoint>();
 
-		//spawnPoints = GameObject.FindGameObjectsWithTag( "SpawnPoint" );
-
 	}
 
 	public void CreateSpawnPoint() {
@@ -85,11 +83,14 @@ public class EnemySpawner : MonoBehaviour {
 
 		FindSpawnPoints();
 
-		//enemySpawnPoints = FindObjectsOfType<EnemySpawnPoint>();
 	}
 
 	public void DestroyEnemy( Enemy destroyedEnemy ) {
 		Destroy( destroyedEnemy );
+
+		if ( spawnedEnemies.Count == 0 ) {
+			killedAllEnemies = true;
+		}
 	}
 
 	//private void OnDestroy() {

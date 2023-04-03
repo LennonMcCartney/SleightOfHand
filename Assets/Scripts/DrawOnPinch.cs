@@ -93,7 +93,7 @@ public class DrawOnPinch : MonoBehaviour {
 
 				CheckCircle(newCollisionPoint);
 
-				drawPoints.Add(new Vector3(newDrawPoint.x, newDrawPoint.y, 2));
+				drawPoints.Add(new Vector3(newDrawPoint.x, newDrawPoint.y, 5));
 				counter = 0.0f;
 			}
 		}
