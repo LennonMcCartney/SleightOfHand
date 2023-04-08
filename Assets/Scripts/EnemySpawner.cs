@@ -93,10 +93,4 @@ public class EnemySpawner : MonoBehaviour {
 		}
 	}
 
-	//private void OnDestroy() {
-		//enemySpawnManager.enemySpawners.Remove(this);
-		//enemySpawnManager.RefreshEnemySpawners();
-
-	//}
-
 }

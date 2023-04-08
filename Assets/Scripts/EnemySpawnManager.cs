@@ -27,15 +27,6 @@ public class EnemySpawnManager : MonoBehaviour {
 
 		enemySpawners.Add( newEnemySpawner );
 
-		RefreshEnemySpawners();
-
-	}
-
-	public void RefreshEnemySpawners() {
-		for ( int i = 0; i < enemySpawners.Count; i++ ) {
-			//enemySpawners[i].spawnerId = i;
-
-		}
 	}
 
 }

@@ -17,8 +17,6 @@ public class EnemySpawnManagerEditor : Editor {
 
 		}
 
-		enemySpawnManager.RefreshEnemySpawners();
-
 	}
 
 }

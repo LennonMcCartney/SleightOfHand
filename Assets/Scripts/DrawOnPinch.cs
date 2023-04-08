@@ -78,22 +78,25 @@ public class DrawOnPinch : MonoBehaviour {
 	{
 		if (pinching)
 		{
-			circleTargets.SetActive(true);
-			squareTargets.SetActive(true);
-			triangeTargets.SetActive(true);
+			circleTargets.SetActive( true );
+			squareTargets.SetActive( true );
+			triangeTargets.SetActive( true );
 
 			counter += Time.deltaTime;
 			if (counter > 0.01f)
 			{
-				Vector2 newDrawPoint = new Vector2(pinchDetector.transform.localPosition.x, pinchDetector.transform.localPosition.y);
+				//Vector2 newDrawPoint = new Vector2(pinchDetector.transform.localPosition.x, pinchDetector.transform.localPosition.y);
+				Vector2 newPoint = new Vector2( pinchDetector.transform.localPosition.x, pinchDetector.transform.localPosition.y ) * 2.0f;
 
-				Vector2 newCollisionPoint = newDrawPoint;
-				newCollisionPoint.y -= 1.5f;
-				collisionPoints.Add(newCollisionPoint);
+				//Vector2 newCollisionPoint = newDrawPoint;
+				//newCollisionPoint.y -= 1.5f;
+				collisionPoints.Add( newPoint );
 
-				CheckCircle(newCollisionPoint);
+				Debug.Log( newPoint );
 
-				drawPoints.Add(new Vector3(newDrawPoint.x, newDrawPoint.y, 5));
+				CheckCircle( newPoint );
+
+				drawPoints.Add( new Vector3( newPoint.x, newPoint.y, 2 ) );
 				counter = 0.0f;
 			}
 		}
