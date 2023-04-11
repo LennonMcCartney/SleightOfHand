@@ -49,11 +49,11 @@ public class DrawOnPinch : MonoBehaviour {
     {
 		Debug.Log( "Fire " + spellShape );
 
-		RaycastHit raycastHit;
-		if ( Physics.Raycast( transform.position, transform.position + transform.forward * 3.0f, out raycastHit ) )
+		Debug.DrawLine( player.transform.position, player.transform.position + player.transform.forward * 3.0f );
+
+		if ( Physics.Raycast( player.transform.position, player.transform.position + player.transform.forward * 3.0f, out RaycastHit raycastHit ) )
         {
-			Enemy hitEnemy;
-			if ( raycastHit.transform.gameObject.TryGetComponent<Enemy>( out hitEnemy ) ) {
+			if ( raycastHit.transform.gameObject.TryGetComponent<Enemy>( out Enemy hitEnemy ) ) {
 				hitEnemy.HitBySpell( spellShape );
 			}
 		}
@@ -64,7 +64,7 @@ public class DrawOnPinch : MonoBehaviour {
 	{
 		lineRenderer = GetComponent<LineRenderer>();
 
-		circleTargets.SetActive(false);
+		//circleTargets.SetActive(false);
 		squareTargets.SetActive(false);
 		triangeTargets.SetActive(false);
 
@@ -76,17 +76,17 @@ public class DrawOnPinch : MonoBehaviour {
 
 	public void FixedUpdate()
 	{
-		if (pinching)
+		if ( pinching )
 		{
 			circleTargets.SetActive( true );
 			squareTargets.SetActive( true );
 			triangeTargets.SetActive( true );
 
 			counter += Time.deltaTime;
-			if (counter > 0.01f)
+			if ( counter > 0.01f )
 			{
 				//Vector2 newDrawPoint = new Vector2(pinchDetector.transform.localPosition.x, pinchDetector.transform.localPosition.y);
-				Vector2 newPoint = new Vector2( pinchDetector.transform.localPosition.x, pinchDetector.transform.localPosition.y ) * 2.0f;
+				Vector2 newPoint = new Vector2( pinchDetector.transform.localPosition.x, pinchDetector.transform.localPosition.y ) * 3.0f;
 
 				//Vector2 newCollisionPoint = newDrawPoint;
 				//newCollisionPoint.y -= 1.5f;
@@ -186,9 +186,9 @@ public class DrawOnPinch : MonoBehaviour {
 			}
 		}
 
-		if (failedAtCircle)
+		if ( failedAtCircle )
 		{
-			circleTargets.SetActive(false);
+			//circleTargets.SetActive(false);
 		}
 	}
 
