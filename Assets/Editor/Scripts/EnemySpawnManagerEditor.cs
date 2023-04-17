@@ -8,14 +8,15 @@ public class EnemySpawnManagerEditor : Editor {
 
 	public override void OnInspectorGUI() {
 
-		base.OnInspectorGUI();
-
-		EnemySpawnManager enemySpawnManager = (EnemySpawnManager)target;
+		//base.OnInspectorGUI();
 
 		if ( GUILayout.Button( "Create new Enemy Spawner" ) ) {
+			EnemySpawnManager enemySpawnManager = (EnemySpawnManager)target;
 			enemySpawnManager.CreateNewEnemySpawner();
 
 		}
+
+		DrawDefaultInspector();
 
 	}
 

@@ -38,7 +38,6 @@ public class EnemySpawner : MonoBehaviour {
 	}
 
 	private void Update() {
-
 		if ( reachedByPlayer && spawnedEnemies.Count < numOfEnemies ) {
 			spawnCounter += Time.deltaTime;
 			if (spawnCounter > spawnInterval) {

@@ -1,18 +1,27 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Events;
+
+#if UNITY_EDITOR
+using UnityEditor;
+#endif //UNITY_EDITOR
 
 public class EnemySpawnManager : MonoBehaviour {
 
 	[SerializeField] private GameObject enemySpawnerPrefab;
 	[SerializeField] private GameObject spawnPointPrefab;
 
-	public List<EnemySpawner> enemySpawners = new List<EnemySpawner>();
+	[SerializeField] private float testVar;
+
+	[SerializeField] private List<EnemySpawner> enemySpawners;
 
 	private void Start() {
-		enemySpawners = new List<EnemySpawner>();
+		//enemySpawners = new List<EnemySpawner>();
 
+	}
+
+	private void Update() {
+		Debug.Log( enemySpawners.Count );
 	}
 
 	public void CreateNewEnemySpawner() {
@@ -25,7 +34,11 @@ public class EnemySpawnManager : MonoBehaviour {
 		newEnemySpawner.enemySpawnManager = this;
 		newEnemySpawner.spawnPointPrefab = spawnPointPrefab;
 
+		Undo.RecordObject( newEnemySpawner, "Something" );
+
 		enemySpawners.Add( newEnemySpawner );
+
+		testVar = 3.0f;
 
 	}
 

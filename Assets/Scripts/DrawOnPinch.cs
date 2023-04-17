@@ -49,9 +49,7 @@ public class DrawOnPinch : MonoBehaviour {
     {
 		Debug.Log( "Fire " + spellShape );
 
-		Debug.DrawLine( player.transform.position, player.transform.position + player.transform.forward * 3.0f );
-
-		if ( Physics.Raycast( player.transform.position, player.transform.position + player.transform.forward * 3.0f, out RaycastHit raycastHit ) )
+		if ( Physics.Raycast( player.transform.position, player.transform.position + player.transform.forward * 5.0f, out RaycastHit raycastHit ) )
         {
 			if ( raycastHit.transform.gameObject.TryGetComponent<Enemy>( out Enemy hitEnemy ) ) {
 				hitEnemy.HitBySpell( spellShape );
@@ -76,6 +74,9 @@ public class DrawOnPinch : MonoBehaviour {
 
 	public void FixedUpdate()
 	{
+		Debug.DrawLine( player.transform.position, player.transform.position + player.transform.forward * 5.0f, Color.green );
+		//Debug.DrawLine( new Vector3( 0.0f, 1.0f, 0.0f ), new Vector3( 3.0f, 1.0f, 0.0f ), Color.green );
+
 		if ( pinching )
 		{
 			circleTargets.SetActive( true );
