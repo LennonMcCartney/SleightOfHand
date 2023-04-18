@@ -1,6 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+#if UNITY_EDITOR
+using UnityEditor;
+#endif //UNITY_EDITOR
 
 public class EnemySpawner : MonoBehaviour {
 
@@ -17,7 +20,7 @@ public class EnemySpawner : MonoBehaviour {
 
 	[SerializeField] private float enemySpeed;
 
-	private SpawnPoint[] spawnPoints;
+	[SerializeField] private SpawnPoint[] spawnPoints;
 
 	[SerializeField] private List<GameObject> enemyPrefabs;
 
@@ -33,7 +36,7 @@ public class EnemySpawner : MonoBehaviour {
 
 		player = FindObjectOfType<Player>();
 
-		FindSpawnPoints();
+		RefreshSpawnPoints();
 
 	}
 
@@ -70,7 +73,7 @@ public class EnemySpawner : MonoBehaviour {
 		}
 	}
 
-	public void FindSpawnPoints() {
+	public void RefreshSpawnPoints() {
 
 		spawnPoints = GetComponentsInChildren<SpawnPoint>();
 
@@ -78,9 +81,13 @@ public class EnemySpawner : MonoBehaviour {
 
 	public void CreateSpawnPoint() {
 		GameObject newSpawnPoint = Instantiate( spawnPointPrefab );
+#if UNITY_EDITOR
+		Undo.RegisterCreatedObjectUndo( newSpawnPoint, "Create new Enemy Spawn Point" );
+		//Undo.RecordObject( newSpawnPoint, "Create new Enemy Spawn Point" );
+#endif //UNITY_EDITOR
 		newSpawnPoint.transform.parent = transform;
 
-		FindSpawnPoints();
+		RefreshSpawnPoints();
 
 	}
 

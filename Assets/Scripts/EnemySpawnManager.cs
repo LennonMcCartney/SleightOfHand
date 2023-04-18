@@ -1,31 +1,33 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-
 #if UNITY_EDITOR
 using UnityEditor;
 #endif //UNITY_EDITOR
 
+[ExecuteInEditMode]
 public class EnemySpawnManager : MonoBehaviour {
 
 	[SerializeField] private GameObject enemySpawnerPrefab;
 	[SerializeField] private GameObject spawnPointPrefab;
 
-	[SerializeField] private float testVar;
+	[SerializeField] private EnemySpawner[] enemySpawners;
 
-	[SerializeField] private List<EnemySpawner> enemySpawners;
+	//private Undo.UndoRedoCallback undoRedoCallback;
 
 	private void Start() {
-		//enemySpawners = new List<EnemySpawner>();
+		Undo.undoRedoPerformed += RefreshEnemySpawners;
+		//undoRedoCallback = RefreshEnemySpawners;
+		//RefreshEnemySpawners();
 
-	}
-
-	private void Update() {
-		Debug.Log( enemySpawners.Count );
 	}
 
 	public void CreateNewEnemySpawner() {
 		GameObject newEnemySpawnerObject = Instantiate( enemySpawnerPrefab, transform );
+
+#if UNITY_EDITOR
+		Undo.RegisterCreatedObjectUndo( newEnemySpawnerObject, "Create new Enemy Spawner" );
+		//Undo.RecordObject( newEnemySpawnerObject, "Create new Enemy Spawner" );
+
+#endif //UNITY_EDITOR
 
 		newEnemySpawnerObject.transform.parent = transform;
 
@@ -34,11 +36,17 @@ public class EnemySpawnManager : MonoBehaviour {
 		newEnemySpawner.enemySpawnManager = this;
 		newEnemySpawner.spawnPointPrefab = spawnPointPrefab;
 
-		Undo.RecordObject( newEnemySpawner, "Something" );
+		RefreshEnemySpawners();
 
-		enemySpawners.Add( newEnemySpawner );
+	}
 
-		testVar = 3.0f;
+	private void RefreshEnemySpawners() {
+		Debug.Log( "RefreshEnemySpawners" );
+		enemySpawners = GetComponentsInChildren<EnemySpawner>();
+
+		//foreach ( EnemySpawner enemySpawner in enemySpawners ) {
+			//Undo.undoRedoPerformed += enemySpawner.RefreshSpawnPoints;
+		//}
 
 	}
 

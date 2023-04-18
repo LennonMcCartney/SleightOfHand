@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
 
@@ -7,16 +5,13 @@ using UnityEditor;
 public class EnemySpawnManagerEditor : Editor {
 
 	public override void OnInspectorGUI() {
-
-		//base.OnInspectorGUI();
+		DrawDefaultInspector();
 
 		if ( GUILayout.Button( "Create new Enemy Spawner" ) ) {
 			EnemySpawnManager enemySpawnManager = (EnemySpawnManager)target;
 			enemySpawnManager.CreateNewEnemySpawner();
 
 		}
-
-		DrawDefaultInspector();
 
 	}
 
