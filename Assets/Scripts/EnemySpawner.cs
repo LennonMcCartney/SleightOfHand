@@ -43,10 +43,11 @@ public class EnemySpawner : MonoBehaviour {
 	private void Update() {
 		if ( reachedByPlayer && spawnedEnemies.Count < numOfEnemies ) {
 			spawnCounter += Time.deltaTime;
-			if (spawnCounter > spawnInterval) {
-				Debug.Log(spawnedEnemies.Count);
+			if ( spawnCounter > spawnInterval ) {
+				Debug.Log( spawnedEnemies.Count );
 				foreach ( SpawnPoint spawnPoint in spawnPoints ) {
 					GameObject newEnemyObject = Instantiate( enemyPrefabs[ Random.Range( 0, enemyPrefabs.Count ) ], spawnPoint.transform );
+					newEnemyObject.transform.parent = transform;
 					Enemy newEnemy = newEnemyObject.GetComponent<Enemy>();
 					newEnemy.spawner = this;
 					newEnemy.SetSpeed( enemySpeed );

@@ -11,11 +11,9 @@ public class EnemySpawnManager : MonoBehaviour {
 
 	[SerializeField] private EnemySpawner[] enemySpawners;
 
-	//private Undo.UndoRedoCallback undoRedoCallback;
-
 	private void Start() {
 		Undo.undoRedoPerformed += RefreshEnemySpawners;
-		//undoRedoCallback = RefreshEnemySpawners;
+
 		//RefreshEnemySpawners();
 
 	}

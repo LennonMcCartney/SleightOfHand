@@ -39,19 +39,19 @@ public class DrawOnPinch : MonoBehaviour {
 
 	private bool failedAtCircle = false;
 
-	public static float Round(float value, int digits)
-	{
-		float mult = Mathf.Pow(10.0f, digits);
-		return Mathf.Round(value * mult) / mult;
+	public static float Round( float value, int digits ) {
+		float mult = Mathf.Pow( 10.0f, digits );
+		return Mathf.Round( value * mult ) / mult;
 	}
 
 	private void FireSpell( Shape spellShape )
     {
 		Debug.Log( "Fire " + spellShape );
-
 		if ( Physics.Raycast( player.transform.position, player.transform.position + player.transform.forward * 5.0f, out RaycastHit raycastHit ) )
         {
+			Debug.Log( "Raycast Hit" );
 			if ( raycastHit.transform.gameObject.TryGetComponent<Enemy>( out Enemy hitEnemy ) ) {
+				Debug.Log( "Is Enemy" );
 				hitEnemy.HitBySpell( spellShape );
 			}
 		}
