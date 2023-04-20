@@ -47,7 +47,7 @@ public class EnemySpawner : MonoBehaviour {
 				Debug.Log( spawnedEnemies.Count );
 				foreach ( SpawnPoint spawnPoint in spawnPoints ) {
 					GameObject newEnemyObject = Instantiate( enemyPrefabs[ Random.Range( 0, enemyPrefabs.Count ) ], spawnPoint.transform );
-					newEnemyObject.transform.parent = transform;
+					//newEnemyObject.transform.SetParent( null );
 					Enemy newEnemy = newEnemyObject.GetComponent<Enemy>();
 					newEnemy.spawner = this;
 					newEnemy.SetSpeed( enemySpeed );
@@ -66,9 +66,7 @@ public class EnemySpawner : MonoBehaviour {
 	}
 
 	private void OnTriggerEnter( Collider other ) {
-
-		Player player;
-		if ( other.TryGetComponent<Player>( out player ) ) {
+		if ( other.TryGetComponent<Player>( out Player testPlayer ) ) {
 			reachedByPlayer = true;
 			player.virtualCameraController.shouldMove = false;
 		}

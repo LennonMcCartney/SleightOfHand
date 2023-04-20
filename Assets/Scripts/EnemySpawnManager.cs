@@ -19,7 +19,7 @@ public class EnemySpawnManager : MonoBehaviour {
 	}
 
 	public void CreateNewEnemySpawner() {
-		GameObject newEnemySpawnerObject = Instantiate( enemySpawnerPrefab, transform );
+		GameObject newEnemySpawnerObject = Instantiate( enemySpawnerPrefab );
 
 #if UNITY_EDITOR
 		Undo.RegisterCreatedObjectUndo( newEnemySpawnerObject, "Create new Enemy Spawner" );
@@ -27,7 +27,7 @@ public class EnemySpawnManager : MonoBehaviour {
 
 #endif //UNITY_EDITOR
 
-		newEnemySpawnerObject.transform.parent = transform;
+		//newEnemySpawnerObject.transform.parent = transform;
 
 		EnemySpawner newEnemySpawner = newEnemySpawnerObject.GetComponent<EnemySpawner>();
 

@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4477193012511380839}
   - component: {fileID: 8640074230163524970}
   - component: {fileID: 8555673029657958567}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -117,7 +117,7 @@ GameObject:
   - component: {fileID: 8997264822297686712}
   - component: {fileID: 1156159197080398539}
   - component: {fileID: 5265783601583727490}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: CircleEnemy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -189,3 +189,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shape: 0
+  spawner: {fileID: 0}

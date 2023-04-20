@@ -24,7 +24,7 @@ public class DrawOnPinch : MonoBehaviour {
 
 	private List<Vector3> drawPoints = new List<Vector3>();
 	private List<Vector2> collisionPoints = new List<Vector2>();
-	
+
 	private List<Vector2> circleTargetPoints = new List<Vector2>();
 	private List<Vector2> hitCircleTargetPoints = new List<Vector2>();
 
@@ -32,6 +32,8 @@ public class DrawOnPinch : MonoBehaviour {
 	private List<Vector2> hitSquareTargetPoints = new List<Vector2>();
 
 	LineRenderer lineRenderer;
+
+	private int enemyLayerMask;
 
 	private float counter = 0.0f;
 
@@ -44,27 +46,29 @@ public class DrawOnPinch : MonoBehaviour {
 		return Mathf.Round( value * mult ) / mult;
 	}
 
-	private void FireSpell( Shape spellShape )
-    {
+	private void FireSpell( Shape spellShape ) {
 		Debug.Log( "Fire " + spellShape );
-		if ( Physics.Raycast( player.transform.position, player.transform.position + player.transform.forward * 5.0f, out RaycastHit raycastHit ) )
-        {
-			Debug.Log( "Raycast Hit" );
+		if ( Physics.Raycast( player.transform.position, player.transform.position + player.transform.forward * 5.0f, out RaycastHit raycastHit, 1000.0f, enemyLayerMask ) ) {
+			Debug.Log( "HIT" );
+			Debug.Log( raycastHit.transform.gameObject );
 			if ( raycastHit.transform.gameObject.TryGetComponent<Enemy>( out Enemy hitEnemy ) ) {
 				Debug.Log( "Is Enemy" );
 				hitEnemy.HitBySpell( spellShape );
 			}
+		} else {
+			Debug.Log( "NO HIT" );
 		}
 
-    }
+	}
 
-	private void Start()
-	{
+	private void Start() {
 		lineRenderer = GetComponent<LineRenderer>();
 
+		enemyLayerMask = LayerMask.GetMask( "Spawner" );
+
 		//circleTargets.SetActive(false);
-		squareTargets.SetActive(false);
-		triangeTargets.SetActive(false);
+		squareTargets.SetActive( false );
+		triangeTargets.SetActive( false );
 
 		GenerateCircleTargets();
 		//GenerateSquareTargets();
@@ -72,20 +76,17 @@ public class DrawOnPinch : MonoBehaviour {
 
 	}
 
-	public void FixedUpdate()
-	{
+	public void FixedUpdate() {
 		Debug.DrawLine( player.transform.position, player.transform.position + player.transform.forward * 5.0f, Color.green );
 		//Debug.DrawLine( new Vector3( 0.0f, 1.0f, 0.0f ), new Vector3( 3.0f, 1.0f, 0.0f ), Color.green );
 
-		if ( pinching )
-		{
+		if (pinching) {
 			circleTargets.SetActive( true );
 			squareTargets.SetActive( true );
 			triangeTargets.SetActive( true );
 
 			counter += Time.deltaTime;
-			if ( counter > 0.01f )
-			{
+			if (counter > 0.01f) {
 				//Vector2 newDrawPoint = new Vector2(pinchDetector.transform.localPosition.x, pinchDetector.transform.localPosition.y);
 				Vector2 newPoint = new Vector2( pinchDetector.transform.localPosition.x, pinchDetector.transform.localPosition.y ) * 3.0f;
 
@@ -93,7 +94,7 @@ public class DrawOnPinch : MonoBehaviour {
 				//newCollisionPoint.y -= 1.5f;
 				collisionPoints.Add( newPoint );
 
-				Debug.Log( newPoint );
+				//Debug.Log( newPoint );
 
 				CheckCircle( newPoint );
 
@@ -103,23 +104,22 @@ public class DrawOnPinch : MonoBehaviour {
 		}
 
 		lineRenderer.positionCount = drawPoints.Count;
-		for (int i = 0; i < drawPoints.Count; i++)
-		{
-			lineRenderer.SetPosition(i, drawPoints[i]);
+		for (int i = 0; i < drawPoints.Count; i++) {
+			lineRenderer.SetPosition( i, drawPoints[ i ] );
 		}
 	}
 
 	private void GenerateCircleTargets() {
 		for (int i = 0; i < 32; i++) {
-			Vector3 newCircleTargetPosition = new Vector3(Round(circleTargetsRadius * Mathf.Sin((Mathf.PI / 16) * i), 6), Round(circleTargetsRadius * Mathf.Cos((Mathf.PI / 16) * i), 6), 0);
+			Vector3 newCircleTargetPosition = new Vector3( Round( circleTargetsRadius * Mathf.Sin( (Mathf.PI / 16) * i ), 6 ), Round( circleTargetsRadius * Mathf.Cos( (Mathf.PI / 16) * i ), 6 ), 0 );
 
-			GameObject newCircleTarget = Instantiate(targetPrefab);
+			GameObject newCircleTarget = Instantiate( targetPrefab );
 			newCircleTarget.transform.parent = circleTargets.transform;
 			newCircleTarget.transform.localPosition = newCircleTargetPosition;
 			newCircleTarget.transform.forward = player.transform.forward;
-			newCircleTarget.transform.localScale = new Vector3(targetScale, targetScale, targetScale);
+			newCircleTarget.transform.localScale = new Vector3( targetScale, targetScale, targetScale );
 
-			circleTargetPoints.Add(newCircleTargetPosition);
+			circleTargetPoints.Add( newCircleTargetPosition );
 		}
 	}
 
@@ -131,18 +131,16 @@ public class DrawOnPinch : MonoBehaviour {
 		int dx = 1;
 		int dy = 0;
 
-		for (int side = 0; side < 4; ++side)
-		{
-			for (int i = 1; i < 10; ++i)
-			{
+		for ( int side = 0; side < 4; ++side ) {
+			for ( int i = 1; i < 10; ++i ) {
 				Vector3 newCircleTargetPosition = new Vector3( x, y );
 
-				GameObject newCircleTarget = Instantiate(targetPrefab);
+				GameObject newCircleTarget = Instantiate( targetPrefab );
 				newCircleTarget.transform.parent = circleTargets.transform;
 				newCircleTarget.transform.localPosition = newCircleTargetPosition;
-				newCircleTarget.transform.localScale = new Vector3(targetScale, targetScale, targetScale);
+				newCircleTarget.transform.localScale = new Vector3( targetScale, targetScale, targetScale );
 
-				circleTargetPoints.Add(newCircleTargetPosition);
+				circleTargetPoints.Add( newCircleTargetPosition );
 
 				x += dx;
 				y += dy;
@@ -168,51 +166,41 @@ public class DrawOnPinch : MonoBehaviour {
 	}
 
 	private void GenerateTriangleTargets() {
-    }
+	}
 
-	private void CheckCircle( Vector2 newCollisionPoint )
-    {
+	private void CheckCircle( Vector2 newCollisionPoint ) {
 		failedAtCircle = true;
 
-		for (int i = 0; i < circleTargetPoints.Count; i++)
-		{
+		for ( int i = 0; i < circleTargetPoints.Count; i++ ) {
 			//bool testBool = false;
-			if (Vector2.Distance(circleTargetPoints[i], newCollisionPoint) < 0.2f)
-			{
+			if ( Vector2.Distance( circleTargetPoints[ i ], newCollisionPoint ) < 0.2f ) {
 				failedAtCircle = false;
-				if (!hitCircleTargetPoints.Contains(circleTargetPoints[i]))
-				{
-					hitCircleTargetPoints.Add(circleTargetPoints[i]);
+				if ( !hitCircleTargetPoints.Contains( circleTargetPoints[i] ) ) {
+					hitCircleTargetPoints.Add( circleTargetPoints[i] );
 				}
 			}
 		}
 
-		if ( failedAtCircle )
-		{
+		if ( failedAtCircle ) {
 			//circleTargets.SetActive(false);
 		}
 	}
 
-	public void Pinch()
-	{
+	public void Pinch() {
 		hitAllCircleTargets = true;
 		failedAtCircle = false;
 		pinching = true;
 	}
 
-	public void EndPinch()
-	{
-		foreach (Vector2 circleTargetPoint in circleTargetPoints)
-		{
-			if (!hitCircleTargetPoints.Contains(circleTargetPoint))
-			{
+	public void EndPinch() {
+		foreach ( Vector2 circleTargetPoint in circleTargetPoints ) {
+			if ( !hitCircleTargetPoints.Contains( circleTargetPoint ) ) {
 				hitAllCircleTargets = false;
 				break;
 			}
 		}
 
-		if (hitAllCircleTargets && !failedAtCircle)
-		{
+		if ( hitAllCircleTargets && !failedAtCircle ) {
 			FireSpell( Shape.CIRCLE );
 		}
 
@@ -221,8 +209,8 @@ public class DrawOnPinch : MonoBehaviour {
 		hitCircleTargetPoints.Clear();
 		pinching = false;
 
-		circleTargets.SetActive(false);
-		squareTargets.SetActive(false);
-		triangeTargets.SetActive(false);
+		circleTargets.SetActive( false );
+		squareTargets.SetActive( false );
+		triangeTargets.SetActive( false );
 	}
 }
