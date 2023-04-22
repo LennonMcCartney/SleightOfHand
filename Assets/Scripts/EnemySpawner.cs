@@ -24,13 +24,11 @@ public class EnemySpawner : MonoBehaviour {
 
 	[SerializeField] private List<GameObject> enemyPrefabs;
 
-	[HideInInspector]
-	public GameObject spawnPointPrefab;
+	[HideInInspector] public GameObject spawnPointPrefab;
 
-	[HideInInspector]
-	public EnemySpawnManager enemySpawnManager;
+	[HideInInspector] public EnemySpawnManager enemySpawnManager;
 
-	private List<GameObject> spawnedEnemies = new List<GameObject>();
+	[SerializeField] private List<GameObject> spawnedEnemies = new List<GameObject>();
 
 	private void Start() {
 
@@ -91,6 +89,9 @@ public class EnemySpawner : MonoBehaviour {
 	}
 
 	public void DestroyEnemy( Enemy destroyedEnemy ) {
+
+		spawnedEnemies.Remove( destroyedEnemy.gameObject );
+
 		Destroy( destroyedEnemy.gameObject );
 
 		if ( spawnedEnemies.Count == 0 ) {
