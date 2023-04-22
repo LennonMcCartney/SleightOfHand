@@ -91,7 +91,7 @@ public class EnemySpawner : MonoBehaviour {
 	}
 
 	public void DestroyEnemy( Enemy destroyedEnemy ) {
-		Destroy( destroyedEnemy );
+		Destroy( destroyedEnemy.gameObject );
 
 		if ( spawnedEnemies.Count == 0 ) {
 			killedAllEnemies = true;

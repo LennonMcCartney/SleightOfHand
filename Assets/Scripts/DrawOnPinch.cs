@@ -48,7 +48,7 @@ public class DrawOnPinch : MonoBehaviour {
 
 	private void FireSpell( Shape spellShape ) {
 		Debug.Log( "Fire " + spellShape );
-		if ( Physics.Raycast( player.transform.position, player.transform.position + player.transform.forward * 5.0f, out RaycastHit raycastHit, 1000.0f, enemyLayerMask ) ) {
+		if ( Physics.Raycast( player.transform.position, player.transform.forward, out RaycastHit raycastHit, 1000000.0f, enemyLayerMask ) ) {
 			Debug.Log( "HIT" );
 			Debug.Log( raycastHit.transform.gameObject );
 			if ( raycastHit.transform.gameObject.TryGetComponent<Enemy>( out Enemy hitEnemy ) ) {
@@ -62,11 +62,11 @@ public class DrawOnPinch : MonoBehaviour {
 	}
 
 	private void Start() {
+		enemyLayerMask = LayerMask.GetMask( "Enemy" );
+
 		lineRenderer = GetComponent<LineRenderer>();
 
-		enemyLayerMask = LayerMask.GetMask( "Spawner" );
-
-		//circleTargets.SetActive(false);
+		circleTargets.SetActive( false );
 		squareTargets.SetActive( false );
 		triangeTargets.SetActive( false );
 
@@ -77,16 +77,15 @@ public class DrawOnPinch : MonoBehaviour {
 	}
 
 	public void FixedUpdate() {
-		Debug.DrawLine( player.transform.position, player.transform.position + player.transform.forward * 5.0f, Color.green );
-		//Debug.DrawLine( new Vector3( 0.0f, 1.0f, 0.0f ), new Vector3( 3.0f, 1.0f, 0.0f ), Color.green );
+		Debug.DrawLine( player.transform.position, player.transform.position + player.transform.forward * 1000.0f, Color.green );
 
-		if (pinching) {
+		if ( pinching ) {
 			circleTargets.SetActive( true );
 			squareTargets.SetActive( true );
 			triangeTargets.SetActive( true );
 
 			counter += Time.deltaTime;
-			if (counter > 0.01f) {
+			if ( counter > 0.01f ) {
 				//Vector2 newDrawPoint = new Vector2(pinchDetector.transform.localPosition.x, pinchDetector.transform.localPosition.y);
 				Vector2 newPoint = new Vector2( pinchDetector.transform.localPosition.x, pinchDetector.transform.localPosition.y ) * 3.0f;
 
