@@ -27,7 +27,7 @@ public class EnemySpawnManager : MonoBehaviour {
 
 #endif //UNITY_EDITOR
 
-		//newEnemySpawnerObject.transform.parent = transform;
+		newEnemySpawnerObject.transform.parent = transform;
 
 		EnemySpawner newEnemySpawner = newEnemySpawnerObject.GetComponent<EnemySpawner>();
 

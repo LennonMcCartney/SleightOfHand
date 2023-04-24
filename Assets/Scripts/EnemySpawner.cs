@@ -11,7 +11,10 @@ public class EnemySpawner : MonoBehaviour {
 
 	private Player player;
 
-	[SerializeField] private int numOfEnemies;
+	[SerializeField] private int numOfEnemiesToSpawn;
+
+	private int numOfEnemiesSpawned = 0;
+	private int numOfEnemiesKilled = 0;
 
 	private bool killedAllEnemies = false;
 
@@ -39,20 +42,25 @@ public class EnemySpawner : MonoBehaviour {
 	}
 
 	private void Update() {
-		if ( reachedByPlayer && spawnedEnemies.Count < numOfEnemies ) {
+		if ( reachedByPlayer && numOfEnemiesSpawned < numOfEnemiesToSpawn ) {
 			spawnCounter += Time.deltaTime;
 			if ( spawnCounter > spawnInterval ) {
 				Debug.Log( spawnedEnemies.Count );
-				foreach ( SpawnPoint spawnPoint in spawnPoints ) {
-					GameObject newEnemyObject = Instantiate( enemyPrefabs[ Random.Range( 0, enemyPrefabs.Count ) ], spawnPoint.transform );
-					//newEnemyObject.transform.SetParent( null );
-					Enemy newEnemy = newEnemyObject.GetComponent<Enemy>();
-					newEnemy.spawner = this;
-					newEnemy.SetSpeed( enemySpeed );
-					newEnemy.transform.parent = transform.parent;
-					spawnedEnemies.Add( newEnemyObject );
 
-				}
+				SpawnPoint spawnPoint = spawnPoints[ Random.Range( 0, spawnPoints.Length ) ];
+
+				//foreach ( SpawnPoint spawnPoint in spawnPoints ) {
+				GameObject newEnemyObject = Instantiate( enemyPrefabs[ Random.Range( 0, enemyPrefabs.Count ) ], spawnPoint.transform );
+				//newEnemyObject.transform.SetParent( null );
+				Enemy newEnemy = newEnemyObject.GetComponent<Enemy>();
+				newEnemy.spawner = this;
+				newEnemy.SetSpeed( enemySpeed );
+				newEnemy.transform.parent = transform.parent;
+				spawnedEnemies.Add( newEnemyObject );
+
+				numOfEnemiesSpawned++;
+				
+				//}
 
 				spawnCounter = 0.0f;
 			}
@@ -71,7 +79,6 @@ public class EnemySpawner : MonoBehaviour {
 	}
 
 	public void RefreshSpawnPoints() {
-
 		spawnPoints = GetComponentsInChildren<SpawnPoint>();
 
 	}
@@ -94,7 +101,9 @@ public class EnemySpawner : MonoBehaviour {
 
 		Destroy( destroyedEnemy.gameObject );
 
-		if ( spawnedEnemies.Count == 0 ) {
+		numOfEnemiesKilled++;
+
+		if ( numOfEnemiesKilled >= numOfEnemiesToSpawn ) {
 			killedAllEnemies = true;
 		}
 	}
