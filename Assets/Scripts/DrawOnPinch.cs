@@ -71,7 +71,7 @@ public class DrawOnPinch : MonoBehaviour {
 		triangeTargets.SetActive( false );
 
 		GenerateCircleTargets();
-		//GenerateSquareTargets();
+		GenerateSquareTargets();
 		//GenerateTriangleTargets();
 
 	}
@@ -110,45 +110,58 @@ public class DrawOnPinch : MonoBehaviour {
 
 	private void GenerateCircleTargets() {
 		for (int i = 0; i < 32; i++) {
-			Vector3 newCircleTargetPosition = new Vector3( Round( circleTargetsRadius * Mathf.Sin( (Mathf.PI / 16) * i ), 6 ), Round( circleTargetsRadius * Mathf.Cos( (Mathf.PI / 16) * i ), 6 ), 0 );
+			Vector3 newTargetPosition = new Vector3( Round( circleTargetsRadius * Mathf.Sin( (Mathf.PI / 16) * i ), 6 ), Round( circleTargetsRadius * Mathf.Cos( (Mathf.PI / 16) * i ), 6 ), 0 );
 
-			GameObject newCircleTarget = Instantiate( targetPrefab );
-			newCircleTarget.transform.parent = circleTargets.transform;
-			newCircleTarget.transform.localPosition = newCircleTargetPosition;
-			newCircleTarget.transform.forward = player.transform.forward;
-			newCircleTarget.transform.localScale = new Vector3( targetScale, targetScale, targetScale );
+			GameObject newTarget = Instantiate( targetPrefab );
+			newTarget.transform.parent = circleTargets.transform;
+			newTarget.transform.localPosition = newTargetPosition;
+			newTarget.transform.forward = player.transform.forward;
+			newTarget.transform.localScale = new Vector3( targetScale, targetScale, targetScale );
 
-			circleTargetPoints.Add( newCircleTargetPosition );
+			circleTargetPoints.Add( newTargetPosition );
 		}
 	}
 
 	private void GenerateSquareTargets() {
-		int x = -1;
-		int y = -1;
 
-		//point to the right
-		int dx = 1;
-		int dy = 0;
+		for ( int i = 0; i < 10; i++ ) {
+			Vector3 newTargetPosition = new Vector3(  );
 
-		for ( int side = 0; side < 4; ++side ) {
-			for ( int i = 1; i < 10; ++i ) {
-				Vector3 newCircleTargetPosition = new Vector3( x, y );
+			GameObject newTarget = Instantiate( targetPrefab );
+			newTarget.transform.parent = circleTargets.transform;
+			newTarget.transform.localPosition = newTargetPosition;
+			newTarget.transform.forward = player.transform.forward;
+			newTarget.transform.localScale = new Vector3( targetScale, targetScale, targetScale );
 
-				GameObject newCircleTarget = Instantiate( targetPrefab );
-				newCircleTarget.transform.parent = circleTargets.transform;
-				newCircleTarget.transform.localPosition = newCircleTargetPosition;
-				newCircleTarget.transform.localScale = new Vector3( targetScale, targetScale, targetScale );
-
-				circleTargetPoints.Add( newCircleTargetPosition );
-
-				x += dx;
-				y += dy;
-			}
-			//turn right
-			int t = dx;
-			dx = -dy;
-			dy = t;
+			circleTargetPoints.Add( newTargetPosition );
 		}
+
+		//int x = -1;
+		//int y = -1;
+
+		////point to the right
+		//int dx = 1;
+		//int dy = 0;
+
+		//for ( int side = 0; side < 4; ++side ) {
+		//	for ( int i = 1; i < 10; ++i ) {
+		//		Vector3 newCircleTargetPosition = new Vector3( x, y );
+
+		//		GameObject newCircleTarget = Instantiate( targetPrefab );
+		//		newCircleTarget.transform.parent = circleTargets.transform;
+		//		newCircleTarget.transform.localPosition = newCircleTargetPosition;
+		//		newCircleTarget.transform.localScale = new Vector3( targetScale, targetScale, targetScale );
+
+		//		circleTargetPoints.Add( newCircleTargetPosition );
+
+		//		x += dx;
+		//		y += dy;
+		//	}
+		//	//turn right
+		//	int t = dx;
+		//	dx = -dy;
+		//	dy = t;
+		//}
 
 		//for (int i = 0; i < 4; i++ ) {
 		//	for (int j = 0; j < 10; j++) {
