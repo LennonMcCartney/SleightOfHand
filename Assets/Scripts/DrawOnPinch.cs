@@ -12,7 +12,8 @@ public class DrawOnPinch : MonoBehaviour {
 
 	[SerializeField] private GameObject player;
 
-	[SerializeField] private PinchDetector pinchDetector;
+	[SerializeField] private PinchDetector pinchDetectorLeft;
+	[SerializeField] private PinchDetector pinchDetectorRight;
 
 	[SerializeField] private GameObject circleTargets;
 	[SerializeField] private GameObject squareTargets;
@@ -20,7 +21,8 @@ public class DrawOnPinch : MonoBehaviour {
 
 	[SerializeField] private GameObject targetPrefab;
 
-	private bool pinching = false;
+	private bool pinchingLeft = false;
+	private bool pinchingRight = false;
 
 	private List<Vector3> drawPoints = new List<Vector3>();
 	private List<Vector2> collisionPoints = new List<Vector2>();
@@ -77,34 +79,42 @@ public class DrawOnPinch : MonoBehaviour {
 	}
 
 	public void FixedUpdate() {
-		Debug.DrawLine( player.transform.position, player.transform.position + player.transform.forward * 1000.0f, Color.green );
+		//Debug.DrawLine( player.transform.position, player.transform.position + player.transform.forward * 1000.0f, Color.green );
 
-		if ( pinching ) {
-			circleTargets.SetActive( true );
-			squareTargets.SetActive( true );
-			triangeTargets.SetActive( true );
+		if ( pinchingLeft ) {
+			Pinching( pinchDetectorLeft.transform );
+		}
 
-			counter += Time.deltaTime;
-			if ( counter > 0.01f ) {
-				//Vector2 newDrawPoint = new Vector2(pinchDetector.transform.localPosition.x, pinchDetector.transform.localPosition.y);
-				Vector2 newPoint = new Vector2( pinchDetector.transform.localPosition.x, pinchDetector.transform.localPosition.y ) * 3.0f;
-
-				//Vector2 newCollisionPoint = newDrawPoint;
-				//newCollisionPoint.y -= 1.5f;
-				collisionPoints.Add( newPoint );
-
-				//Debug.Log( newPoint );
-
-				CheckCircle( newPoint );
-
-				drawPoints.Add( new Vector3( newPoint.x, newPoint.y, 2 ) );
-				counter = 0.0f;
-			}
+		if ( pinchingRight ) {
+			Pinching( pinchDetectorRight.transform );
 		}
 
 		lineRenderer.positionCount = drawPoints.Count;
 		for (int i = 0; i < drawPoints.Count; i++) {
 			lineRenderer.SetPosition( i, drawPoints[ i ] );
+		}
+	}
+
+	private void Pinching( Transform pinchDetectorTransform ) {
+		circleTargets.SetActive( true );
+		squareTargets.SetActive( true );
+		triangeTargets.SetActive( true );
+
+		counter += Time.deltaTime;
+		if (counter > 0.01f) {
+			//Vector2 newDrawPoint = new Vector2(pinchDetector.transform.localPosition.x, pinchDetector.transform.localPosition.y);
+			Vector2 newPoint = new Vector2( pinchDetectorTransform.localPosition.x, pinchDetectorTransform.localPosition.y ) * 3.0f;
+
+			//Vector2 newCollisionPoint = newDrawPoint;
+			//newCollisionPoint.y -= 1.5f;
+			collisionPoints.Add( newPoint );
+
+			//Debug.Log( newPoint );
+
+			CheckCircle( newPoint );
+
+			drawPoints.Add( new Vector3( newPoint.x, newPoint.y, 2 ) );
+			counter = 0.0f;
 		}
 	}
 
@@ -199,9 +209,10 @@ public class DrawOnPinch : MonoBehaviour {
 	}
 
 	public void Pinch() {
+		Debug.Log( "PINCH" );
 		hitAllCircleTargets = true;
 		failedAtCircle = false;
-		pinching = true;
+		pinchingRight = true;
 	}
 
 	public void EndPinch() {
@@ -219,7 +230,7 @@ public class DrawOnPinch : MonoBehaviour {
 		drawPoints.Clear();
 		collisionPoints.Clear();
 		hitCircleTargetPoints.Clear();
-		pinching = false;
+		pinchingRight = false;
 
 		circleTargets.SetActive( false );
 		squareTargets.SetActive( false );
