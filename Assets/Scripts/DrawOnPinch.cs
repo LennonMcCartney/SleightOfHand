@@ -6,6 +6,11 @@ using UnityEngine;
 
 public class DrawOnPinch : MonoBehaviour {
 
+	private enum Handedness {
+		LEFT,
+		RIGHT
+	}
+
 	[SerializeField] private float targetScale;
 
 	[SerializeField] private float circleTargetsRadius;
@@ -24,7 +29,8 @@ public class DrawOnPinch : MonoBehaviour {
 	private bool pinchingLeft = false;
 	private bool pinchingRight = false;
 
-	private List<Vector3> drawPoints = new List<Vector3>();
+	private List<Vector3> leftDrawPoints = new List<Vector3>();
+	private List<Vector3> rightDrawPoints = new List<Vector3>();
 	private List<Vector2> collisionPoints = new List<Vector2>();
 
 	private List<Vector2> circleTargetPoints = new List<Vector2>();
@@ -33,7 +39,8 @@ public class DrawOnPinch : MonoBehaviour {
 	private List<Vector2> squareTargetPoints = new List<Vector2>();
 	private List<Vector2> hitSquareTargetPoints = new List<Vector2>();
 
-	LineRenderer lineRenderer;
+	[SerializeField] private LineRenderer leftLineRenderer;
+	[SerializeField] private LineRenderer rightLineRenderer;
 
 	private int enemyLayerMask;
 
@@ -66,14 +73,14 @@ public class DrawOnPinch : MonoBehaviour {
 	private void Start() {
 		enemyLayerMask = LayerMask.GetMask( "Enemy" );
 
-		lineRenderer = GetComponent<LineRenderer>();
+		//lineRenderer = GetComponent<LineRenderer>();
 
 		circleTargets.SetActive( false );
 		squareTargets.SetActive( false );
 		triangeTargets.SetActive( false );
 
 		GenerateCircleTargets();
-		GenerateSquareTargets();
+		//GenerateSquareTargets();
 		//GenerateTriangleTargets();
 
 	}
@@ -82,26 +89,31 @@ public class DrawOnPinch : MonoBehaviour {
 		//Debug.DrawLine( player.transform.position, player.transform.position + player.transform.forward * 1000.0f, Color.green );
 
 		if ( pinchingLeft ) {
-			Pinching( pinchDetectorLeft.transform );
+			Pinching( Handedness.LEFT, pinchDetectorLeft.transform );
 		}
 
 		if ( pinchingRight ) {
-			Pinching( pinchDetectorRight.transform );
+			Pinching( Handedness.RIGHT, pinchDetectorRight.transform );
 		}
 
-		lineRenderer.positionCount = drawPoints.Count;
-		for (int i = 0; i < drawPoints.Count; i++) {
-			lineRenderer.SetPosition( i, drawPoints[ i ] );
+		rightLineRenderer.positionCount = rightDrawPoints.Count;
+		for (int i = 0; i < rightDrawPoints.Count; i++) {
+			rightLineRenderer.SetPosition( i, rightDrawPoints[ i ] );
+		}
+
+		leftLineRenderer.positionCount = leftDrawPoints.Count;
+		for ( int i = 0; i < leftDrawPoints.Count; i++ ) {
+			leftLineRenderer.SetPosition( i, leftDrawPoints[i] );
 		}
 	}
 
-	private void Pinching( Transform pinchDetectorTransform ) {
+	private void Pinching( Handedness handedness, Transform pinchDetectorTransform ) {
 		circleTargets.SetActive( true );
 		squareTargets.SetActive( true );
 		triangeTargets.SetActive( true );
 
 		counter += Time.deltaTime;
-		if (counter > 0.01f) {
+		if ( counter > 0.01f ) {
 			//Vector2 newDrawPoint = new Vector2(pinchDetector.transform.localPosition.x, pinchDetector.transform.localPosition.y);
 			Vector2 newPoint = new Vector2( pinchDetectorTransform.localPosition.x, pinchDetectorTransform.localPosition.y ) * 3.0f;
 
@@ -113,7 +125,15 @@ public class DrawOnPinch : MonoBehaviour {
 
 			CheckCircle( newPoint );
 
-			drawPoints.Add( new Vector3( newPoint.x, newPoint.y, 2 ) );
+			switch ( handedness ) {
+				case Handedness.LEFT:
+					leftDrawPoints.Add( new Vector3( newPoint.x, newPoint.y, 2 ) );
+					break;
+				case Handedness.RIGHT:
+					rightDrawPoints.Add( new Vector3( newPoint.x, newPoint.y, 2 ) );
+					break;
+			}
+
 			counter = 0.0f;
 		}
 	}
@@ -208,14 +228,19 @@ public class DrawOnPinch : MonoBehaviour {
 		}
 	}
 
-	public void Pinch() {
-		Debug.Log( "PINCH" );
+	public void PinchLeft() {
+		hitAllCircleTargets = true;
+		failedAtCircle = false;
+		pinchingLeft = true;
+	}
+
+	public void PinchRight() {
 		hitAllCircleTargets = true;
 		failedAtCircle = false;
 		pinchingRight = true;
 	}
 
-	public void EndPinch() {
+	public void EndPinchLeft() {
 		foreach ( Vector2 circleTargetPoint in circleTargetPoints ) {
 			if ( !hitCircleTargetPoints.Contains( circleTargetPoint ) ) {
 				hitAllCircleTargets = false;
@@ -227,13 +252,40 @@ public class DrawOnPinch : MonoBehaviour {
 			FireSpell( Shape.CIRCLE );
 		}
 
-		drawPoints.Clear();
+		leftDrawPoints.Clear();
+		rightDrawPoints.Clear();
 		collisionPoints.Clear();
 		hitCircleTargetPoints.Clear();
+
+		pinchingLeft = false;
+
+		circleTargets.SetActive( false );
+		squareTargets.SetActive( false );
+		triangeTargets.SetActive( false );
+	}
+
+	public void EndPinchRight() {
+		foreach ( Vector2 circleTargetPoint in circleTargetPoints ) {
+			if ( !hitCircleTargetPoints.Contains( circleTargetPoint ) ) {
+				hitAllCircleTargets = false;
+				break;
+			}
+		}
+
+		if ( hitAllCircleTargets && !failedAtCircle ) {
+			FireSpell( Shape.CIRCLE );
+		}
+
+		leftDrawPoints.Clear();
+		rightDrawPoints.Clear();
+		collisionPoints.Clear();
+		hitCircleTargetPoints.Clear();
+
 		pinchingRight = false;
 
 		circleTargets.SetActive( false );
 		squareTargets.SetActive( false );
 		triangeTargets.SetActive( false );
 	}
+
 }
