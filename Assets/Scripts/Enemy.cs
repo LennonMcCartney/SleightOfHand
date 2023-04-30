@@ -72,10 +72,10 @@ public class Enemy : MonoBehaviour
 
 	public void HitBySpell( Shape spellShape ) {
 
-		Debug.Log( "HitBySpell" );
+		//Debug.Log( "HitBySpell" );
 
 		if ( spellShape == shape ) {
-			Debug.Log( "DestroyEnemy" );
+			//Debug.Log( "DestroyEnemy" );
 			spawner.DestroyEnemy( this );
 			//Destroy( gameObject );
 

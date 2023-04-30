@@ -45,7 +45,7 @@ public class EnemySpawner : MonoBehaviour {
 		if ( reachedByPlayer && numOfEnemiesSpawned < numOfEnemiesToSpawn ) {
 			spawnCounter += Time.deltaTime;
 			if ( spawnCounter > spawnInterval ) {
-				Debug.Log( spawnedEnemies.Count );
+				//Debug.Log( spawnedEnemies.Count );
 
 				SpawnPoint spawnPoint = spawnPoints[ Random.Range( 0, spawnPoints.Length ) ];
 

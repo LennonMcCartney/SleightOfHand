@@ -518,7 +518,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   targetScale: 0.3
-  circleTargetsRadius: 0.7
+  circleTargetsRadius: 0.5
   player: {fileID: 2092320481021651157}
   pinchDetectorLeft: {fileID: 6493792787070447731}
   pinchDetectorRight: {fileID: 3124419631258595601}
@@ -593,7 +593,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 8214817043000041607}
         m_TargetAssemblyTypeName: DrawOnPinch, Assembly-CSharp
-        m_MethodName: EndPinchRight
+        m_MethodName: EndPinch
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -672,7 +672,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 8214817043000041607}
         m_TargetAssemblyTypeName: DrawOnPinch, Assembly-CSharp
-        m_MethodName: EndPinchLeft
+        m_MethodName: EndPinch
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
