@@ -14,6 +14,9 @@ public class VirtualCameraController : MonoBehaviour {
 
 	private CinemachineTrackedDolly trackedDolly;
 
+	[SerializeField] private CinemachineVirtualCamera lookAtInFront;
+	private CinemachineTrackedDolly lookAtInFrontTrackedDolly;
+
 	[HideInInspector] public float speed;
 
 	private void Start() {
@@ -21,18 +24,23 @@ public class VirtualCameraController : MonoBehaviour {
 
 		trackedDolly = virtualCamera.GetCinemachineComponent<CinemachineTrackedDolly>();
 
+		lookAtInFrontTrackedDolly = lookAtInFront.GetCinemachineComponent<CinemachineTrackedDolly>();
+
 	}
 
 	private void Update() {
 
 		if ( shouldMove ) {
 			trackedDolly.m_PathPosition += Time.deltaTime * speed;
+			lookAtInFrontTrackedDolly.m_PathPosition = trackedDolly.m_PathPosition + Time.deltaTime * speed * 50;
 		}
 
 		Enemy closestEnemy = GetClosestEnemy();
 		if ( closestEnemy ) {
 			virtualCamera.LookAt = GetClosestEnemy().transform;
 
+		} else {
+			virtualCamera.LookAt = lookAtInFront.transform;
 		}
 
 	}
