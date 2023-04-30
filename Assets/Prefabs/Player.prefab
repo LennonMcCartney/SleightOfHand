@@ -481,6 +481,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1493142911820315246}
   - component: {fileID: 8214817043000041607}
+  - component: {fileID: 4761764564119794687}
   m_Layer: 8
   m_Name: DrawOnPinch
   m_TagString: Untagged
@@ -529,6 +530,53 @@ MonoBehaviour:
     type: 3}
   leftLineRenderer: {fileID: 7052021502330554555}
   rightLineRenderer: {fileID: 7732843726425502874}
+--- !u!114 &4761764564119794687
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6062939253689960885}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Actions: {fileID: -944628639613478452, guid: 4ea74ea4c88f40c4588a7d5ebab2475e,
+    type: 3}
+  m_NotificationBehavior: 2
+  m_UIInputModule: {fileID: 0}
+  m_DeviceLostEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_DeviceRegainedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ControlsChangedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ActionEvents:
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 8214817043000041607}
+        m_TargetAssemblyTypeName: DrawOnPinch, Assembly-CSharp
+        m_MethodName: DebugKillEnemy
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 73eeac5b-14b1-4c91-a1b6-959a9cc6e065
+    m_ActionName: Debug/KillEnemy[/Keyboard/e]
+  m_NeverAutoSwitchControlSchemes: 0
+  m_DefaultControlScheme: 
+  m_DefaultActionMap: Debug
+  m_SplitScreenIndex: -1
+  m_Camera: {fileID: 0}
 --- !u!1 &6078228849582569213
 GameObject:
   m_ObjectHideFlags: 0

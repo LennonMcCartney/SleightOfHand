@@ -1,0 +1,34 @@
+{
+    "name": "PlayerInput",
+    "maps": [
+        {
+            "name": "Debug",
+            "id": "b3c772d5-6df1-404a-9c9f-e27fbb414667",
+            "actions": [
+                {
+                    "name": "KillEnemy",
+                    "type": "Button",
+                    "id": "73eeac5b-14b1-4c91-a1b6-959a9cc6e065",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "8f73d19c-d608-482d-b3dc-ac289ba8f85f",
+                    "path": "<Keyboard>/e",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "KillEnemy",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": []
+}

@@ -54,6 +54,12 @@ public class DrawOnPinch : MonoBehaviour {
 	private bool failedAtSquare = false;
 	private bool failedAtTriangle = false;
 
+	public void DebugKillEnemy() {
+		FireSpell( Shape.CIRCLE );
+		FireSpell( Shape.SQUARE );
+		FireSpell( Shape.TRIANGLE );
+	}
+
 	public static float Round( float value, int digits ) {
 		float mult = Mathf.Pow( 10.0f, digits );
 		return Mathf.Round( value * mult ) / mult;
