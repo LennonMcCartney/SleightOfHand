@@ -49,6 +49,7 @@ public class DrawOnPinch : MonoBehaviour {
 
 	private bool hitAllCircleTargets = false;
 	private bool hitAllSquareTargets = false;
+	private bool hitAllTriangleTargets = false;
 
 	private bool failedAtCircle = false;
 	private bool failedAtSquare = false;
@@ -83,7 +84,7 @@ public class DrawOnPinch : MonoBehaviour {
 
 		GenerateCircleTargets();
 		GenerateSquareTargets();
-		//GenerateTriangleTargets();
+		GenerateTriangleTargets();
 
 	}
 
@@ -208,48 +209,10 @@ public class DrawOnPinch : MonoBehaviour {
 			squareTargetPoints.Add( newTargetPosition );
 		}
 
-		//int x = -1;
-		//int y = -1;
-
-		////point to the right
-		//int dx = 1;
-		//int dy = 0;
-
-		//for ( int side = 0; side < 4; ++side ) {
-		//	for ( int i = 1; i < 10; ++i ) {
-		//		Vector3 newCircleTargetPosition = new Vector3( x, y );
-
-		//		GameObject newCircleTarget = Instantiate( targetPrefab );
-		//		newCircleTarget.transform.parent = circleTargets.transform;
-		//		newCircleTarget.transform.localPosition = newCircleTargetPosition;
-		//		newCircleTarget.transform.localScale = new Vector3( targetScale, targetScale, targetScale );
-
-		//		circleTargetPoints.Add( newCircleTargetPosition );
-
-		//		x += dx;
-		//		y += dy;
-		//	}
-		//	//turn right
-		//	int t = dx;
-		//	dx = -dy;
-		//	dy = t;
-		//}
-
-		//for (int i = 0; i < 4; i++ ) {
-		//	for (int j = 0; j < 10; j++) {
-		//		Vector3 newSquareTargetPosition = new Vector3(i, j);
-
-		//		GameObject newSquareTarget = Instantiate(targetPrefab);
-		//		newSquareTarget.transform.parent = squareTargets.transform;
-		//		newSquareTarget.transform.localPosition = newSquareTargetPosition;
-		//		newSquareTarget.transform.localScale = new Vector3(targetScale, targetScale, targetScale);
-
-		//		squareTargetPoints.Add(newSquareTargetPosition);
-		//          }
-		//}
 	}
 
 	private void GenerateTriangleTargets() {
+
 	}
 
 	private void CheckCircle() {

@@ -1857,7 +1857,7 @@ MonoBehaviour:
   m_Waypoints:
   - position: {x: 4, y: 0, z: -5}
     roll: 0
-  - position: {x: -3.2048564, y: 0, z: -3.4882567}
+  - position: {x: -3.2048564, y: 1.50004, z: -3.4882567}
     roll: 0
   - position: {x: -4, y: 0, z: -1}
     roll: 0
