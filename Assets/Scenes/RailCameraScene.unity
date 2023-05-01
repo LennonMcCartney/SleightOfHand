@@ -1512,7 +1512,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 515124255}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 4.92, y: -0.5, z: -0.38}
+  m_LocalPosition: {x: 2, y: -0.5, z: 8}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1785,6 +1785,7 @@ MonoBehaviour:
   - {fileID: 515124257}
   enemyPrefabs:
   - {fileID: 8997264822297686713, guid: 387e92ae88cf42a4d8cfc426dcd99b5c, type: 3}
+  - {fileID: 8997264822297686713, guid: 14816c291c9fadb49b481c83647d7cf0, type: 3}
   spawnPointPrefab: {fileID: 8101438925236114656, guid: 6a4fed4bdd9efbb438d4aa91fa5bcde0,
     type: 3}
   enemySpawnManager: {fileID: 1691905396}
@@ -1810,7 +1811,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 901544904}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -3, y: 0.5, z: 2}
+  m_LocalPosition: {x: 2.00004, y: 0.5, z: -4.50009}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1857,7 +1858,7 @@ MonoBehaviour:
   m_Waypoints:
   - position: {x: 4, y: 0, z: -5}
     roll: 0
-  - position: {x: -3.2048564, y: 1.50004, z: -3.4882567}
+  - position: {x: -3, y: 0, z: -3}
     roll: 0
   - position: {x: -4, y: 0, z: -1}
     roll: 0
@@ -1865,11 +1866,11 @@ MonoBehaviour:
     roll: 0
   - position: {x: -3, y: 0, z: 2}
     roll: 0
-  - position: {x: 2.1991982, y: 0, z: -1.5321358}
+  - position: {x: 2, y: 0, z: -1}
     roll: 0
   - position: {x: 2, y: 0, z: 2}
     roll: 0
-  - position: {x: -0.8949642, y: 0, z: 3.3791707}
+  - position: {x: -1, y: 0, z: 3}
     roll: 0
 --- !u!4 &1070108231
 Transform:
@@ -1923,7 +1924,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1089388482}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 4.58, y: -0.5, z: -5.557}
+  m_LocalPosition: {x: -6, y: -0.5, z: 8}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2044,6 +2045,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: EnemySpawnManager
       objectReference: {fileID: 0}
+    - target: {fileID: 2448012147809353704, guid: 037d9a35112974647988c0190b789b50,
+        type: 3}
+      propertyPath: enemySpawners.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2448012147809353704, guid: 037d9a35112974647988c0190b789b50,
+        type: 3}
+      propertyPath: enemySpawners.Array.data[0]
+      value: 
+      objectReference: {fileID: 901544905}
     - target: {fileID: 8024291699228154497, guid: 037d9a35112974647988c0190b789b50,
         type: 3}
       propertyPath: m_RootOrder

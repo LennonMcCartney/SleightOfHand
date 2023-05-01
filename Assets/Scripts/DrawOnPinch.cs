@@ -73,6 +73,7 @@ public class DrawOnPinch : MonoBehaviour {
 		Debug.Log( "Fire > " + spellShape );
 		if ( Physics.Raycast( player.transform.position, player.transform.forward, out RaycastHit raycastHit, 1000000.0f, enemyLayerMask ) ) {
 			if ( raycastHit.transform.gameObject.TryGetComponent<Enemy>( out Enemy hitEnemy ) ) {
+				Debug.Log( "Hit Enemy" );
 				hitEnemy.HitBySpell( spellShape );
 			}
 		}
@@ -92,7 +93,7 @@ public class DrawOnPinch : MonoBehaviour {
 	}
 
 	public void FixedUpdate() {
-		//Debug.DrawLine( player.transform.position, player.transform.position + player.transform.forward * 1000.0f, Color.green );
+		Debug.DrawLine( player.transform.position, player.transform.position + player.transform.forward * 1000.0f, Color.green );
 
 		if ( pinchingLeft ) {
 			Pinching( Handedness.LEFT, pinchDetectorLeft.transform );
@@ -148,9 +149,10 @@ public class DrawOnPinch : MonoBehaviour {
 
 	private void GenerateCircleTargets() {
 		for (int i = 0; i < 32; i++) {
-			Vector3 newTargetPosition = new Vector3( Round( circleTargetsRadius * Mathf.Sin( ( Mathf.PI / 16 ) * i ), 6 ), Round( circleTargetsRadius * Mathf.Cos( ( Mathf.PI / 16 ) * i ) + 0.1f, 6 ) );
+			Vector3 newTargetPosition = new Vector3( Round( circleTargetsRadius * Mathf.Sin( ( Mathf.PI / 16 ) * i ), 6 ), Round( circleTargetsRadius * Mathf.Cos( ( Mathf.PI / 16 ) * i ) + 0.2f, 6 ) );
 
 			GameObject newTarget = Instantiate( targetPrefab );
+			newTarget.GetComponent<SpriteRenderer>().color = new Color( 0.2f, 0.6f, 0.8f, 0.2f );
 			newTarget.transform.parent = circleTargets.transform;
 			newTarget.transform.localPosition = newTargetPosition;
 			newTarget.transform.forward = player.transform.forward;
@@ -158,14 +160,16 @@ public class DrawOnPinch : MonoBehaviour {
 
 			circleTargetPoints.Add( newTargetPosition );
 		}
+
 	}
 
 	private void GenerateSquareTargets() {
-		for ( int i = -8; i < 8; i++ ) {
+		for ( int i = -6; i < 6; i++ ) {
 			float thisI = i;
-			Vector3 newTargetPosition = new Vector3( thisI / 10, 0.8f + 0.1f );
+			Vector3 newTargetPosition = new Vector3( thisI / 10, 0.6f + 0.2f );
 			//Debug.Log( newTargetPosition );
 			GameObject newTarget = Instantiate( targetPrefab );
+			newTarget.GetComponent<SpriteRenderer>().color = new Color( 0.8f, 0.1f, 0.1f, 0.2f );
 			newTarget.transform.parent = squareTargets.transform;
 			newTarget.transform.localPosition = newTargetPosition;
 			newTarget.transform.forward = player.transform.forward;
@@ -174,11 +178,12 @@ public class DrawOnPinch : MonoBehaviour {
 			squareTargetPoints.Add( newTargetPosition );
 		}
 
-		for ( int i = -8; i < 8; i++ ) {
+		for ( int i = -6; i < 6; i++ ) {
 			float thisI = i;
-			Vector3 newTargetPosition = new Vector3( -0.8f, thisI / 10 + 0.1f );
+			Vector3 newTargetPosition = new Vector3( -0.6f, thisI / 10 + 0.2f );
 			//Debug.Log( newTargetPosition );
 			GameObject newTarget = Instantiate( targetPrefab );
+			newTarget.GetComponent<SpriteRenderer>().color = new Color( 0.8f, 0.1f, 0.1f, 0.2f );
 			newTarget.transform.parent = squareTargets.transform;
 			newTarget.transform.localPosition = newTargetPosition;
 			newTarget.transform.forward = player.transform.forward;
@@ -187,11 +192,12 @@ public class DrawOnPinch : MonoBehaviour {
 			squareTargetPoints.Add( newTargetPosition );
 		}
 
-		for ( int i = -8; i < 8; i++ ) {
+		for ( int i = -6; i < 6; i++ ) {
 			float thisI = i;
-			Vector3 newTargetPosition = new Vector3( 0.8f, thisI / 10 + 0.1f );
+			Vector3 newTargetPosition = new Vector3( 0.6f, thisI / 10 + 0.2f );
 			//Debug.Log( newTargetPosition );
 			GameObject newTarget = Instantiate( targetPrefab );
+			newTarget.GetComponent<SpriteRenderer>().color = new Color( 0.8f, 0.1f, 0.1f, 0.2f );
 			newTarget.transform.parent = squareTargets.transform;
 			newTarget.transform.localPosition = newTargetPosition;
 			newTarget.transform.forward = player.transform.forward;
@@ -200,11 +206,12 @@ public class DrawOnPinch : MonoBehaviour {
 			squareTargetPoints.Add( newTargetPosition );
 		}
 
-		for ( int i = -8; i < 8; i++ ) {
+		for ( int i = -6; i < 6; i++ ) {
 			float thisI = i;
-			Vector3 newTargetPosition = new Vector3( thisI / 10, -0.8f + 0.1f );
+			Vector3 newTargetPosition = new Vector3( thisI / 10, -0.6f + 0.2f );
 			//Debug.Log( newTargetPosition );
 			GameObject newTarget = Instantiate( targetPrefab );
+			newTarget.GetComponent<SpriteRenderer>().color = new Color( 0.8f, 0.1f, 0.1f, 0.2f );
 			newTarget.transform.parent = squareTargets.transform;
 			newTarget.transform.localPosition = newTargetPosition;
 			newTarget.transform.forward = player.transform.forward;
@@ -216,11 +223,40 @@ public class DrawOnPinch : MonoBehaviour {
 	}
 
 	private void GenerateTriangleTargets() {
-		for ( int i = -8; i < 8; i++ ) {
+		for ( int i = -6; i < 7; i++ ) {
 			float thisI = i;
-			Vector3 newTargetPosition = new Vector3( thisI / 10, 0.8f + 0.1f );
+			Vector3 newTargetPosition = new Vector3( thisI / 20 - 0.35f, thisI / 10 + 0.2f );
 			//Debug.Log( newTargetPosition );
 			GameObject newTarget = Instantiate( targetPrefab );
+			newTarget.GetComponent<SpriteRenderer>().color = new Color( 0.9f, 0.8f, 0.1f, 0.2f );
+			newTarget.transform.parent = triangleTargets.transform;
+			newTarget.transform.localPosition = newTargetPosition;
+			newTarget.transform.forward = player.transform.forward;
+			newTarget.transform.localScale = new Vector3( targetScale, targetScale, targetScale );
+
+			triangleTargetPoints.Add( newTargetPosition );
+		}
+
+		for ( int i = -6; i < 7; i++ ) {
+			float thisI = i;
+			Vector3 newTargetPosition = new Vector3( thisI / 20 + 0.35f, -thisI / 10 + 0.2f );
+			//Debug.Log( newTargetPosition );
+			GameObject newTarget = Instantiate( targetPrefab );
+			newTarget.GetComponent<SpriteRenderer>().color = new Color( 0.9f, 0.8f, 0.1f, 0.2f );
+			newTarget.transform.parent = triangleTargets.transform;
+			newTarget.transform.localPosition = newTargetPosition;
+			newTarget.transform.forward = player.transform.forward;
+			newTarget.transform.localScale = new Vector3( targetScale, targetScale, targetScale );
+
+			triangleTargetPoints.Add( newTargetPosition );
+		}
+
+		for ( int i = -6; i < 6; i++ ) {
+			float thisI = i;
+			Vector3 newTargetPosition = new Vector3( thisI / 10, -0.6f + 0.2f );
+			//Debug.Log( newTargetPosition );
+			GameObject newTarget = Instantiate( targetPrefab );
+			newTarget.GetComponent<SpriteRenderer>().color = new Color( 0.9f, 0.8f, 0.1f, 0.2f );
 			newTarget.transform.parent = triangleTargets.transform;
 			newTarget.transform.localPosition = newTargetPosition;
 			newTarget.transform.forward = player.transform.forward;
@@ -249,12 +285,21 @@ public class DrawOnPinch : MonoBehaviour {
 		}
 	}
 
+	private void CheckTriangle() {
+		foreach ( Vector2 triangleTargetPoint in triangleTargetPoints ) {
+			if ( !hitTriangleTargetPoints.Contains( triangleTargetPoint ) ) {
+				hitAllTriangleTargets = false;
+				break;
+			}
+		}
+	}
+
 	private void CheckNewPointCircle( Vector2 newCollisionPoint ) {
 		failedAtCircle = true;
 
 		for ( int i = 0; i < circleTargetPoints.Count; i++ ) {
 			//bool testBool = false;
-			if ( Vector2.Distance( circleTargetPoints[i], newCollisionPoint ) < 0.2f ) {
+			if ( Vector2.Distance( circleTargetPoints[i], newCollisionPoint ) < targetScale / 2f ) {
 				failedAtCircle = false;
 				if ( !hitCircleTargetPoints.Contains( circleTargetPoints[i] ) ) {
 					hitCircleTargetPoints.Add( circleTargetPoints[i] );
@@ -271,7 +316,7 @@ public class DrawOnPinch : MonoBehaviour {
 		failedAtSquare = true;
 
 		for ( int i = 0; i < squareTargetPoints.Count; i++ ) {
-			if ( Vector2.Distance( squareTargetPoints[i], newCollisionPoint ) < 0.2f ) {
+			if ( Vector2.Distance( squareTargetPoints[i], newCollisionPoint ) < targetScale / 2f ) {
 				failedAtSquare = false;
 				if ( !hitSquareTargetPoints.Contains( squareTargetPoints[i] ) ) {
 					hitSquareTargetPoints.Add( squareTargetPoints[i] );
@@ -289,7 +334,7 @@ public class DrawOnPinch : MonoBehaviour {
 		failedAtTriangle = true;
 
 		for ( int i = 0; i < triangleTargetPoints.Count; i++ ) {
-			if ( Vector2.Distance( triangleTargetPoints[i], newCollisionPoint ) < 0.2f ) {
+			if ( Vector2.Distance( triangleTargetPoints[i], newCollisionPoint ) < targetScale / 2f ) {
 				failedAtTriangle = false;
 				if ( !hitTriangleTargetPoints.Contains( triangleTargetPoints[i] ) ) {
 					hitTriangleTargetPoints.Add( triangleTargetPoints[i] );
@@ -306,25 +351,38 @@ public class DrawOnPinch : MonoBehaviour {
 	public void PinchLeft() {
 		hitAllCircleTargets = true;
 		hitAllSquareTargets = true;
+		hitAllTriangleTargets = true;
+
 		failedAtCircle = false;
+		failedAtSquare = false;
+		failedAtTriangle = false;
+
 		pinchingLeft = true;
 	}
 
 	public void PinchRight() {
 		hitAllCircleTargets = true;
 		hitAllSquareTargets = true;
+		hitAllTriangleTargets= true;
+
 		failedAtCircle = false;
+		failedAtSquare = false;
+		failedAtTriangle = false;
+
 		pinchingRight = true;
 	}
 
 	public void EndPinch() {
 		CheckCircle();
 		CheckSquare();
+		CheckTriangle();
 
 		if ( hitAllCircleTargets && !failedAtCircle ) {
 			FireSpell( Shape.CIRCLE );
 		} else if ( hitAllSquareTargets && !failedAtSquare ) {
 			FireSpell( Shape.SQUARE );
+		} else if ( hitAllTriangleTargets && !failedAtTriangle ) {
+			FireSpell( Shape.TRIANGLE );
 		}
 
 		leftDrawPoints.Clear();
@@ -332,6 +390,7 @@ public class DrawOnPinch : MonoBehaviour {
 		collisionPoints.Clear();
 		hitCircleTargetPoints.Clear();
 		hitSquareTargetPoints.Clear();
+		hitTriangleTargetPoints.Clear();
 
 		pinchingLeft = false;
 		pinchingRight = false;
