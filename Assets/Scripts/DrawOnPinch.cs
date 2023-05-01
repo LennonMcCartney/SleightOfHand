@@ -23,7 +23,7 @@ public class DrawOnPinch : MonoBehaviour {
 
 	[SerializeField] private GameObject circleTargets;
 	[SerializeField] private GameObject squareTargets;
-	[SerializeField] private GameObject triangeTargets;
+	[SerializeField] private GameObject triangleTargets;
 
 	[SerializeField] private GameObject targetPrefab;
 
@@ -39,6 +39,9 @@ public class DrawOnPinch : MonoBehaviour {
 
 	private List<Vector2> squareTargetPoints = new List<Vector2>();
 	private List<Vector2> hitSquareTargetPoints = new List<Vector2>();
+
+	private List<Vector2> triangleTargetPoints = new List<Vector2>();
+	private List<Vector2> hitTriangleTargetPoints = new List<Vector2>();
 
 	[SerializeField] private LineRenderer leftLineRenderer;
 	[SerializeField] private LineRenderer rightLineRenderer;
@@ -80,7 +83,7 @@ public class DrawOnPinch : MonoBehaviour {
 
 		circleTargets.SetActive( false );
 		squareTargets.SetActive( false );
-		triangeTargets.SetActive( false );
+		triangleTargets.SetActive( false );
 
 		GenerateCircleTargets();
 		GenerateSquareTargets();
@@ -113,7 +116,7 @@ public class DrawOnPinch : MonoBehaviour {
 	private void Pinching( Handedness handedness, Transform pinchDetectorTransform ) {
 		circleTargets.SetActive( true );
 		squareTargets.SetActive( true );
-		triangeTargets.SetActive( true );
+		triangleTargets.SetActive( true );
 
 		counter += Time.deltaTime;
 		if ( counter > 0.01f ) {
@@ -128,6 +131,7 @@ public class DrawOnPinch : MonoBehaviour {
 
 			CheckNewPointCircle( newPoint );
 			CheckNewPointSquare( newPoint );
+			CheckNewPointTriangle( newPoint );
 
 			switch ( handedness ) {
 				case Handedness.LEFT:
@@ -212,7 +216,18 @@ public class DrawOnPinch : MonoBehaviour {
 	}
 
 	private void GenerateTriangleTargets() {
+		for ( int i = -8; i < 8; i++ ) {
+			float thisI = i;
+			Vector3 newTargetPosition = new Vector3( thisI / 10, 0.8f + 0.1f );
+			//Debug.Log( newTargetPosition );
+			GameObject newTarget = Instantiate( targetPrefab );
+			newTarget.transform.parent = triangleTargets.transform;
+			newTarget.transform.localPosition = newTargetPosition;
+			newTarget.transform.forward = player.transform.forward;
+			newTarget.transform.localScale = new Vector3( targetScale, targetScale, targetScale );
 
+			triangleTargetPoints.Add( newTargetPosition );
+		}
 	}
 
 	private void CheckCircle() {
@@ -270,6 +285,24 @@ public class DrawOnPinch : MonoBehaviour {
 
 	}
 
+	private void CheckNewPointTriangle( Vector2 newCollisionPoint ) {
+		failedAtTriangle = true;
+
+		for ( int i = 0; i < triangleTargetPoints.Count; i++ ) {
+			if ( Vector2.Distance( triangleTargetPoints[i], newCollisionPoint ) < 0.2f ) {
+				failedAtTriangle = false;
+				if ( !hitTriangleTargetPoints.Contains( triangleTargetPoints[i] ) ) {
+					hitTriangleTargetPoints.Add( triangleTargetPoints[i] );
+				}
+			}
+		}
+
+		if ( failedAtTriangle ) {
+
+		}
+
+	}
+
 	public void PinchLeft() {
 		hitAllCircleTargets = true;
 		hitAllSquareTargets = true;
@@ -305,7 +338,7 @@ public class DrawOnPinch : MonoBehaviour {
 
 		circleTargets.SetActive( false );
 		squareTargets.SetActive( false );
-		triangeTargets.SetActive( false );
+		triangleTargets.SetActive( false );
 	}
 
 	public void EndPinchLeft() {
@@ -329,7 +362,7 @@ public class DrawOnPinch : MonoBehaviour {
 
 		circleTargets.SetActive( false );
 		squareTargets.SetActive( false );
-		triangeTargets.SetActive( false );
+		triangleTargets.SetActive( false );
 	}
 
 	public void EndPinchRight() {
@@ -353,7 +386,8 @@ public class DrawOnPinch : MonoBehaviour {
 
 		circleTargets.SetActive( false );
 		squareTargets.SetActive( false );
-		triangeTargets.SetActive( false );
+		triangleTargets.SetActive( false );
+
 	}
 
 }
