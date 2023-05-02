@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.AI;
 
 public enum Shape
 {
@@ -16,8 +15,6 @@ public class Enemy : MonoBehaviour
 
 	private Camera mainCamera;
 
-	private NavMeshAgent navMeshAgent;
-
 	private Animator animator;
 
 	[SerializeField] private Shape shape;
@@ -27,10 +24,20 @@ public class Enemy : MonoBehaviour
 	[HideInInspector]
 	public EnemySpawner spawner;
 
-	private void Start() {
-		mainCamera= Camera.main;
+	public float Speed
+    {
+		get { return speed; }
+		set { speed = value; }
+    }
 
-		navMeshAgent = GetComponent<NavMeshAgent>();
+	public Player Player
+    {
+		get { return player; }
+		set { player = value; }
+    }
+
+	private void Start() {
+		mainCamera = Camera.main;
 
 		animator = GetComponentInChildren<Animator>();
 
@@ -51,8 +58,6 @@ public class Enemy : MonoBehaviour
 				break;
 		}
 
-		navMeshAgent.speed = speed;
-
 	}
 
 	private void Update() {
@@ -62,12 +67,6 @@ public class Enemy : MonoBehaviour
 		newEulerAngles.y = transform.eulerAngles.y;
 		transform.eulerAngles = newEulerAngles;
 
-		navMeshAgent.SetDestination( player.transform.position );
-
-	}
-
-	public void SetSpeed( float newSpeed ) {
-		speed = newSpeed;
 	}
 
 	public void HitBySpell( Shape spellShape ) {

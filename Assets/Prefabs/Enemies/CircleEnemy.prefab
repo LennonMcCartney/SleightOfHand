@@ -117,6 +117,7 @@ GameObject:
   - component: {fileID: 8997264822297686712}
   - component: {fileID: 1156159197080398539}
   - component: {fileID: 5265783601583727490}
+  - component: {fileID: 119195590486807254}
   m_Layer: 3
   m_Name: CircleEnemy
   m_TagString: Untagged
@@ -190,3 +191,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shape: 0
   spawner: {fileID: 0}
+--- !u!114 &119195590486807254
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8997264822297686713}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f5afbb4452608c84da3132227577f319, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

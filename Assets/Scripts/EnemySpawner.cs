@@ -54,7 +54,7 @@ public class EnemySpawner : MonoBehaviour {
 				//newEnemyObject.transform.SetParent( null );
 				Enemy newEnemy = newEnemyObject.GetComponent<Enemy>();
 				newEnemy.spawner = this;
-				newEnemy.SetSpeed( enemySpeed );
+				newEnemy.Speed = enemySpeed;
 				newEnemy.transform.parent = transform.parent;
 				spawnedEnemies.Add( newEnemyObject );
 
