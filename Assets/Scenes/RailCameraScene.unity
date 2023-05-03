@@ -1735,8 +1735,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   numOfEnemiesToSpawn: 1
   spawnInterval: 3
-  enemySpeed: 0.3
-  triangleEnemyFlightTime: 5
+  enemySpeed: 1
+  triangleEnemyFlightTime: 3
   spawnPoints:
   - {fileID: 1089388483}
   enemyPrefabs:

@@ -27,12 +27,15 @@ public class TriangleEnemy : MonoBehaviour {
 			baseHeight = position.y;
 			transform.position = position;
 		} else {
-			Debug.Log( Mathf.Sin( sinTimer ) );
 			Vector3 position = transform.position;
-			position.y = baseHeight + Mathf.Sin( sinTimer / 2.0f ) / 3.0f;
+			position += transform.up * Mathf.Sin( sinTimer * 5.0f ) * 0.008f;
 			transform.position = position;
 
 			sinTimer += Time.deltaTime;
+
+			transform.LookAt( enemy.Player.transform );
+			transform.position += transform.forward * enemy.Speed / 500;
+
 		}
 	}
 

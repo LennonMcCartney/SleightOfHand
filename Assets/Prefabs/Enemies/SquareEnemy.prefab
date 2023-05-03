@@ -74,7 +74,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: ccc1c0cc0ba8270459fd4a7d5999cfb0, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 21b71e608548e3e41842a58d256be48a, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -95,7 +95,7 @@ Animator:
   m_GameObject: {fileID: 7292931466629072719}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: e9fbdd50d55a44342ab545ea43ddcefd, type: 2}
+  m_Controller: {fileID: 9100000, guid: 147d08bf29e420845a49acd9485b8884, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -117,8 +117,10 @@ GameObject:
   - component: {fileID: 8997264822297686712}
   - component: {fileID: 1156159197080398539}
   - component: {fileID: 5265783601583727490}
+  - component: {fileID: 119195590486807254}
+  - component: {fileID: 3866895502076969427}
   m_Layer: 3
-  m_Name: TriangleEnemyOld
+  m_Name: SquareEnemy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -188,5 +190,36 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 34a994d07e9e27a4192ac20a1a7818ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  shape: 2
-  spawner: {fileID: 0}
+  <Shape>k__BackingField: 0
+--- !u!114 &119195590486807254
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8997264822297686713}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f5afbb4452608c84da3132227577f319, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!95 &3866895502076969427
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8997264822297686713}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 0}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0

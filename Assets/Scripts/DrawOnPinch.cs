@@ -2,7 +2,6 @@ using Leap.Unity;
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class DrawOnPinch : MonoBehaviour {
@@ -15,6 +14,10 @@ public class DrawOnPinch : MonoBehaviour {
 	[SerializeField] private float targetScale;
 
 	[SerializeField] private float circleTargetsRadius;
+
+	[SerializeField] private Color circleTargetsColor;
+	[SerializeField] private Color squareTargetsColor;
+	[SerializeField] private Color triangleTargetsColor;
 
 	[SerializeField] private GameObject player;
 
@@ -152,7 +155,8 @@ public class DrawOnPinch : MonoBehaviour {
 			Vector3 newTargetPosition = new Vector3( Round( circleTargetsRadius * Mathf.Sin( ( Mathf.PI / 16 ) * i ), 6 ), Round( circleTargetsRadius * Mathf.Cos( ( Mathf.PI / 16 ) * i ) + 0.2f, 6 ) );
 
 			GameObject newTarget = Instantiate( targetPrefab );
-			newTarget.GetComponent<SpriteRenderer>().color = new Color( 0.2f, 0.6f, 0.8f, 0.2f );
+			//newTarget.GetComponent<SpriteRenderer>().color = new Color( 0.2f, 0.6f, 0.8f, 0.2f );
+			newTarget.GetComponent<SpriteRenderer>().color = circleTargetsColor;
 			newTarget.transform.parent = circleTargets.transform;
 			newTarget.transform.localPosition = newTargetPosition;
 			newTarget.transform.forward = player.transform.forward;
@@ -169,7 +173,8 @@ public class DrawOnPinch : MonoBehaviour {
 			Vector3 newTargetPosition = new Vector3( thisI / 10, 0.6f + 0.2f );
 			//Debug.Log( newTargetPosition );
 			GameObject newTarget = Instantiate( targetPrefab );
-			newTarget.GetComponent<SpriteRenderer>().color = new Color( 0.8f, 0.1f, 0.1f, 0.2f );
+			//newTarget.GetComponent<SpriteRenderer>().color = new Color( 0.8f, 0.1f, 0.1f, 0.2f );
+			newTarget.GetComponent<SpriteRenderer>().color = squareTargetsColor;
 			newTarget.transform.parent = squareTargets.transform;
 			newTarget.transform.localPosition = newTargetPosition;
 			newTarget.transform.forward = player.transform.forward;
@@ -183,7 +188,7 @@ public class DrawOnPinch : MonoBehaviour {
 			Vector3 newTargetPosition = new Vector3( -0.6f, thisI / 10 + 0.2f );
 			//Debug.Log( newTargetPosition );
 			GameObject newTarget = Instantiate( targetPrefab );
-			newTarget.GetComponent<SpriteRenderer>().color = new Color( 0.8f, 0.1f, 0.1f, 0.2f );
+			newTarget.GetComponent<SpriteRenderer>().color = squareTargetsColor;
 			newTarget.transform.parent = squareTargets.transform;
 			newTarget.transform.localPosition = newTargetPosition;
 			newTarget.transform.forward = player.transform.forward;
@@ -197,7 +202,7 @@ public class DrawOnPinch : MonoBehaviour {
 			Vector3 newTargetPosition = new Vector3( 0.6f, thisI / 10 + 0.2f );
 			//Debug.Log( newTargetPosition );
 			GameObject newTarget = Instantiate( targetPrefab );
-			newTarget.GetComponent<SpriteRenderer>().color = new Color( 0.8f, 0.1f, 0.1f, 0.2f );
+			newTarget.GetComponent<SpriteRenderer>().color = squareTargetsColor;
 			newTarget.transform.parent = squareTargets.transform;
 			newTarget.transform.localPosition = newTargetPosition;
 			newTarget.transform.forward = player.transform.forward;
@@ -211,7 +216,7 @@ public class DrawOnPinch : MonoBehaviour {
 			Vector3 newTargetPosition = new Vector3( thisI / 10, -0.6f + 0.2f );
 			//Debug.Log( newTargetPosition );
 			GameObject newTarget = Instantiate( targetPrefab );
-			newTarget.GetComponent<SpriteRenderer>().color = new Color( 0.8f, 0.1f, 0.1f, 0.2f );
+			newTarget.GetComponent<SpriteRenderer>().color = squareTargetsColor;
 			newTarget.transform.parent = squareTargets.transform;
 			newTarget.transform.localPosition = newTargetPosition;
 			newTarget.transform.forward = player.transform.forward;
@@ -226,9 +231,8 @@ public class DrawOnPinch : MonoBehaviour {
 		for ( int i = -6; i < 7; i++ ) {
 			float thisI = i;
 			Vector3 newTargetPosition = new Vector3( thisI / 20 - 0.35f, thisI / 10 + 0.2f );
-			//Debug.Log( newTargetPosition );
 			GameObject newTarget = Instantiate( targetPrefab );
-			newTarget.GetComponent<SpriteRenderer>().color = new Color( 0.9f, 0.8f, 0.1f, 0.2f );
+			newTarget.GetComponent<SpriteRenderer>().color = triangleTargetsColor;
 			newTarget.transform.parent = triangleTargets.transform;
 			newTarget.transform.localPosition = newTargetPosition;
 			newTarget.transform.forward = player.transform.forward;
@@ -240,9 +244,8 @@ public class DrawOnPinch : MonoBehaviour {
 		for ( int i = -6; i < 7; i++ ) {
 			float thisI = i;
 			Vector3 newTargetPosition = new Vector3( thisI / 20 + 0.35f, -thisI / 10 + 0.2f );
-			//Debug.Log( newTargetPosition );
 			GameObject newTarget = Instantiate( targetPrefab );
-			newTarget.GetComponent<SpriteRenderer>().color = new Color( 0.9f, 0.8f, 0.1f, 0.2f );
+			newTarget.GetComponent<SpriteRenderer>().color = triangleTargetsColor;
 			newTarget.transform.parent = triangleTargets.transform;
 			newTarget.transform.localPosition = newTargetPosition;
 			newTarget.transform.forward = player.transform.forward;
@@ -254,9 +257,8 @@ public class DrawOnPinch : MonoBehaviour {
 		for ( int i = -6; i < 6; i++ ) {
 			float thisI = i;
 			Vector3 newTargetPosition = new Vector3( thisI / 10, -0.6f + 0.2f );
-			//Debug.Log( newTargetPosition );
 			GameObject newTarget = Instantiate( targetPrefab );
-			newTarget.GetComponent<SpriteRenderer>().color = new Color( 0.9f, 0.8f, 0.1f, 0.2f );
+			newTarget.GetComponent<SpriteRenderer>().color = triangleTargetsColor;
 			newTarget.transform.parent = triangleTargets.transform;
 			newTarget.transform.localPosition = newTargetPosition;
 			newTarget.transform.forward = player.transform.forward;
@@ -276,7 +278,6 @@ public class DrawOnPinch : MonoBehaviour {
 	}
 
 	private void CheckSquare() {
-		//Debug.Log( "hitSquareTargetPoints > " + hitSquareTargetPoints );
 		foreach ( Vector2 squareTargetPoint in squareTargetPoints ) {
 			if ( !hitSquareTargetPoints.Contains( squareTargetPoint ) ) {
 				hitAllSquareTargets = false;
