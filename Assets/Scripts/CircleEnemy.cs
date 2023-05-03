@@ -4,22 +4,22 @@ using UnityEngine;
 using UnityEngine.AI;
 
 public class CircleEnemy : MonoBehaviour {
-    
-    private Enemy enemy;
 
-    private NavMeshAgent navMeshAgent;
+	private Enemy enemy;
 
-    void Start() {
-        enemy = GetComponent<Enemy>();
+	private NavMeshAgent navMeshAgent;
+	
+	void Start() {
+		enemy = GetComponent<Enemy>();
 
-        navMeshAgent = GetComponent<NavMeshAgent>();
-        navMeshAgent.speed = enemy.Speed;
+		navMeshAgent = GetComponent<NavMeshAgent>();
+		navMeshAgent.speed = enemy.Speed;
 
-    }
+	}
 
-    void Update() {
-        navMeshAgent.SetDestination( enemy.Player.transform.position );
+	void Update() {
+		navMeshAgent.SetDestination( enemy.Player.transform.position );
 
-    }
+	}
 
 }
