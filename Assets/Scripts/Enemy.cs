@@ -9,41 +9,32 @@ public enum Shape
 	TRIANGLE
 }
 
+[RequireComponent( typeof( Animator ) )]
 public class Enemy : MonoBehaviour
 {
-	private float speed = 1.0f;
+	
+	public float Speed { get; set; } = 1.0f;
 
 	private Camera mainCamera;
 
 	private Animator animator;
 
-	[SerializeField] private Shape shape;
+	//[SerializeField] private Shape shape;
+	[field:SerializeField]
+	public Shape Shape { get; private set; }
 
-	private Player player;
+	public Player Player { get; set; }
 
-	[HideInInspector]
-	public EnemySpawner spawner;
-
-	public float Speed
-    {
-		get { return speed; }
-		set { speed = value; }
-    }
-
-	public Player Player
-    {
-		get { return player; }
-		set { player = value; }
-    }
+	public EnemySpawner Spawner { get; set; }
 
 	private void Start() {
 		mainCamera = Camera.main;
 
 		animator = GetComponentInChildren<Animator>();
 
-		player = FindObjectOfType<Player>();
+		Player = FindObjectOfType<Player>();
 
-		switch ( shape ) {
+		switch ( Shape ) {
 			case Shape.CIRCLE:
 				animator.Play( "CircleMonster_Movement" );
 				break;
@@ -54,7 +45,7 @@ public class Enemy : MonoBehaviour
 				animator.Play( "TriangleMonster_Movement" );
 				break;
 			default:
-				Debug.Log( "Invalid shape > " + shape );
+				Debug.Log( "Invalid shape > " + Shape );
 				break;
 		}
 
@@ -71,11 +62,11 @@ public class Enemy : MonoBehaviour
 
 	public void HitBySpell( Shape spellShape ) {
 
-		//Debug.Log( "HitBySpell" );
+		Debug.Log( "HitBySpell " + spellShape );
 
-		if ( spellShape == shape ) {
-			//Debug.Log( "DestroyEnemy" );
-			spawner.DestroyEnemy( this );
+		if ( spellShape == Shape ) {
+			Debug.Log( "DestroyEnemy" );
+			Spawner.DestroyEnemy( this );
 			//Destroy( gameObject );
 
 		}
