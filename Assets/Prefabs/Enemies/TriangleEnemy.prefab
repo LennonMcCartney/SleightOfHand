@@ -115,8 +115,9 @@ GameObject:
   m_Component:
   - component: {fileID: 8997264822297686719}
   - component: {fileID: 8997264822297686712}
-  - component: {fileID: 1156159197080398539}
   - component: {fileID: 5265783601583727490}
+  - component: {fileID: 1950311301605666671}
+  - component: {fileID: 3866895502076969427}
   m_Layer: 3
   m_Name: TriangleEnemy
   m_TagString: Untagged
@@ -154,28 +155,6 @@ CapsuleCollider:
   m_Height: 3
   m_Direction: 1
   m_Center: {x: 0, y: 0.5, z: 0}
---- !u!195 &1156159197080398539
-NavMeshAgent:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8997264822297686713}
-  m_Enabled: 1
-  m_AgentTypeID: 0
-  m_Radius: 0.5
-  m_Speed: 3.5
-  m_Acceleration: 8
-  avoidancePriority: 50
-  m_AngularSpeed: 120
-  m_StoppingDistance: 0
-  m_AutoTraverseOffMeshLink: 1
-  m_AutoBraking: 1
-  m_AutoRepath: 1
-  m_Height: 2
-  m_BaseOffset: 0
-  m_WalkableMask: 4294967295
-  m_ObstacleAvoidanceType: 4
 --- !u!114 &5265783601583727490
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -188,5 +167,36 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 34a994d07e9e27a4192ac20a1a7818ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  shape: 2
-  spawner: {fileID: 0}
+  <Shape>k__BackingField: 2
+--- !u!114 &1950311301605666671
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8997264822297686713}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4f608d3470f0ebe45bbacbd4db51c7e0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!95 &3866895502076969427
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8997264822297686713}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 0}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0

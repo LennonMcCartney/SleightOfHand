@@ -23,6 +23,8 @@ public class EnemySpawner : MonoBehaviour {
 
 	[SerializeField] private float enemySpeed;
 
+	[SerializeField] private float triangleEnemyFlightTime;
+
 	[SerializeField] private SpawnPoint[] spawnPoints;
 
 	[SerializeField] private List<GameObject> enemyPrefabs;
@@ -53,9 +55,14 @@ public class EnemySpawner : MonoBehaviour {
 				GameObject newEnemyObject = Instantiate( enemyPrefabs[ Random.Range( 0, enemyPrefabs.Count ) ], spawnPoint.transform );
 				//newEnemyObject.transform.SetParent( null );
 				Enemy newEnemy = newEnemyObject.GetComponent<Enemy>();
-				newEnemy.spawner = this;
-				newEnemy.SetSpeed( enemySpeed );
+				newEnemy.Spawner = this;
+				newEnemy.Speed = enemySpeed;
 				newEnemy.transform.parent = transform.parent;
+
+				if ( newEnemy.TryGetComponent( out TriangleEnemy triangleEnemy ) ) {
+					triangleEnemy.FlightTime = triangleEnemyFlightTime;
+				}
+
 				spawnedEnemies.Add( newEnemyObject );
 
 				numOfEnemiesSpawned++;
