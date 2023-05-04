@@ -53,11 +53,11 @@ public class Enemy : MonoBehaviour
 	}
 
 	private void Update() {
-		transform.LookAt( mainCamera.transform );
+		//transform.LookAt( Player.transform );
 		//transform.Rotate( 0, 180, 0 );
-		Vector3 newEulerAngles = new Vector3();
-		newEulerAngles.y = transform.eulerAngles.y;
-		transform.eulerAngles = newEulerAngles;
+		//Vector3 newEulerAngles = new Vector3();
+		//newEulerAngles.y = transform.eulerAngles.y;
+		//transform.eulerAngles = newEulerAngles;
 
 		string newAnimation = shapeNames[ (int)Shape ] + "Monster_" + actionNames[ (int)action ];
 		if ( currentAnimation != newAnimation ) {
