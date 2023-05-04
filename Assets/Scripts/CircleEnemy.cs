@@ -9,7 +9,7 @@ public class CircleEnemy : MonoBehaviour {
 
 	private NavMeshAgent navMeshAgent;
 	
-	void Start() {
+	private void Start() {
 		enemy = GetComponent<Enemy>();
 
 		navMeshAgent = GetComponent<NavMeshAgent>();
@@ -17,7 +17,7 @@ public class CircleEnemy : MonoBehaviour {
 
 	}
 
-	void Update() {
+	private void Update() {
 		navMeshAgent.SetDestination( enemy.Player.transform.position );
 
 	}

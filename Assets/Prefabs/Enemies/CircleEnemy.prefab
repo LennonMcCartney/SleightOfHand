@@ -189,8 +189,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 34a994d07e9e27a4192ac20a1a7818ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  shape: 0
-  spawner: {fileID: 0}
+  <Shape>k__BackingField: 0
+  <ShieldShape>k__BackingField: 0
 --- !u!114 &119195590486807254
 MonoBehaviour:
   m_ObjectHideFlags: 0

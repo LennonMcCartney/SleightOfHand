@@ -2,30 +2,45 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum Shape
-{
+public enum Shape {
 	CIRCLE,
 	SQUARE,
 	TRIANGLE
 }
 
-[RequireComponent( typeof( Animator ) )]
+public enum Action {
+	MOVEMENT,
+	ATTACK,
+	DEATH
+}
+
 public class Enemy : MonoBehaviour
 {
-	
 	public float Speed { get; set; } = 1.0f;
 
 	private Camera mainCamera;
 
 	private Animator animator;
 
-	//[SerializeField] private Shape shape;
+	private Action action;
+
 	[field:SerializeField]
 	public Shape Shape { get; private set; }
+
+	[field: SerializeField]
+	public Shape ShieldShape { get; private set; }
+
+	public bool HasShield { get; private set; }
 
 	public Player Player { get; set; }
 
 	public EnemySpawner Spawner { get; set; }
+
+	private string currentAnimation;
+
+	private string[] shapeNames = { "Circle", "Square", "Triangle" };
+	private string[] actionNames = { "Movement", "Attack", "Death" };
+
 
 	private void Start() {
 		mainCamera = Camera.main;
@@ -34,20 +49,22 @@ public class Enemy : MonoBehaviour
 
 		Player = FindObjectOfType<Player>();
 
-		switch ( Shape ) {
-			case Shape.CIRCLE:
-				animator.Play( "CircleMonster_Movement" );
-				break;
-			case Shape.SQUARE:
-				animator.Play( "SquareMonster_Movement" );
-				break;
-			case Shape.TRIANGLE:
-				animator.Play( "TriangleMonster_Movement" );
-				break;
-			default:
-				Debug.Log( "Invalid shape > " + Shape );
-				break;
-		}
+		action = Action.ATTACK;
+
+		//switch ( Shape ) {
+		//	case Shape.CIRCLE:
+		//		animator.Play( "CircleMonster_Movement" );
+		//		break;
+		//	case Shape.SQUARE:
+		//		animator.Play( "SquareMonster_Movement" );
+		//		break;
+		//	case Shape.TRIANGLE:
+		//		animator.Play( "TriangleMonster_Movement" );
+		//		break;
+		//	default:
+		//		Debug.Log( "Invalid shape > " + Shape );
+		//		break;
+		//}
 
 	}
 
@@ -58,6 +75,14 @@ public class Enemy : MonoBehaviour
 		newEulerAngles.y = transform.eulerAngles.y;
 		transform.eulerAngles = newEulerAngles;
 
+		//Debug.Log( Shape + " > " + shapeNames[ (int)Shape ] );
+
+		if ( currentAnimation != shapeNames[ (int)Shape ] + "_" + actionNames[ (int)action ] ) {
+			currentAnimation = shapeNames[ (int)Shape ] + "_" + actionNames[ (int)action ];
+			//animator.Play( currentAnimation );
+			animator.Play( "SquareMonster_Movement" );
+		}
+
 	}
 
 	public void HitBySpell( Shape spellShape ) {
@@ -67,8 +92,6 @@ public class Enemy : MonoBehaviour
 		if ( spellShape == Shape ) {
 			Debug.Log( "DestroyEnemy" );
 			Spawner.DestroyEnemy( this );
-			//Destroy( gameObject );
-
 		}
 
 	}

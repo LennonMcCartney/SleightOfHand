@@ -75,7 +75,7 @@ public class DrawOnPinch : MonoBehaviour {
 	private void FireSpell( Shape spellShape ) {
 		Debug.Log( "Fire > " + spellShape );
 		if ( Physics.Raycast( player.transform.position, player.transform.forward, out RaycastHit raycastHit, 1000000.0f, enemyLayerMask ) ) {
-			if ( raycastHit.transform.gameObject.TryGetComponent<Enemy>( out Enemy hitEnemy ) ) {
+			if ( raycastHit.transform.gameObject.TryGetComponent( out Enemy hitEnemy ) ) {
 				Debug.Log( "Hit Enemy" );
 				hitEnemy.HitBySpell( spellShape );
 			}
@@ -127,11 +127,7 @@ public class DrawOnPinch : MonoBehaviour {
 			//Vector2 newDrawPoint = new Vector2(pinchDetector.transform.localPosition.x, pinchDetector.transform.localPosition.y);
 			Vector2 newPoint = new Vector2( pinchDetectorTransform.localPosition.x, pinchDetectorTransform.localPosition.y ) * 3.0f;
 
-			//Vector2 newCollisionPoint = newDrawPoint;
-			//newCollisionPoint.y -= 1.5f;
 			collisionPoints.Add( newPoint );
-
-			//Debug.Log( newPoint );
 
 			CheckNewPointCircle( newPoint );
 			CheckNewPointSquare( newPoint );

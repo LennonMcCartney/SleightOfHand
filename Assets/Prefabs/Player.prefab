@@ -520,9 +520,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   targetScale: 0.3
   circleTargetsRadius: 0.4
-  circleTargetsColor: {r: 0.1764706, g: 0.54901963, b: 0.9019608, a: 0}
-  squareTargetsColor: {r: 0.096787095, g: 0.8207547, b: 0.27450982, a: 0}
-  triangleTargetsColor: {r: 0.8627451, g: 0.78368413, b: 0.07778566, a: 0}
+  circleTargetsColor: {r: 0.19607843, g: 0.627451, b: 0.9019608, a: 0.39215687}
+  squareTargetsColor: {r: 0.078431375, g: 0.7254902, b: 0.23529412, a: 0.39215687}
+  triangleTargetsColor: {r: 0.9019608, g: 0.5472621, b: 0.078431375, a: 0.39215687}
   player: {fileID: 2092320481021651157}
   pinchDetectorLeft: {fileID: 6493792787070447731}
   pinchDetectorRight: {fileID: 3124419631258595601}
@@ -6564,6 +6564,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: DrawBackground
+      objectReference: {fileID: 0}
+    - target: {fileID: 4610625805639087008, guid: 3ac760a1169d8014a98d006686389230,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7648225264999623702, guid: 3ac760a1169d8014a98d006686389230,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_AddedGameObjects: []
