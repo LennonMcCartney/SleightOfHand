@@ -37,7 +37,7 @@ public class VirtualCameraController : MonoBehaviour {
 
 		Enemy closestEnemy = GetClosestEnemy();
 		if ( closestEnemy ) {
-			virtualCamera.LookAt = GetClosestEnemy().transform;
+			//virtualCamera.LookAt = GetClosestEnemy().transform;
 
 		} else {
 			virtualCamera.LookAt = lookAtInFront.transform;

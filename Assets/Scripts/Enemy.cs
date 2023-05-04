@@ -53,7 +53,7 @@ public class Enemy : MonoBehaviour
 	}
 
 	private void Update() {
-		//transform.LookAt( Player.transform );
+		transform.LookAt( Player.VirtualCameraController.transform.position );
 		//transform.Rotate( 0, 180, 0 );
 		//Vector3 newEulerAngles = new Vector3();
 		//newEulerAngles.y = transform.eulerAngles.y;

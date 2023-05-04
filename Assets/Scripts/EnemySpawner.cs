@@ -74,14 +74,14 @@ public class EnemySpawner : MonoBehaviour {
 		}
 
 		if ( killedAllEnemies ) {
-			player.virtualCameraController.shouldMove = true;
+			player.VirtualCameraController.shouldMove = true;
 		}
 	}
 
 	private void OnTriggerEnter( Collider other ) {
 		if ( other.TryGetComponent( out Player collidedPlayer ) ) {
 			reachedByPlayer = true;
-			player.virtualCameraController.shouldMove = false;
+			player.VirtualCameraController.shouldMove = false;
 		}
 	}
 
