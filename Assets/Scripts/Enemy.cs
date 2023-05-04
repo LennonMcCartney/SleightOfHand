@@ -27,7 +27,6 @@ public class Enemy : MonoBehaviour
 	[field:SerializeField]
 	public Shape Shape { get; private set; }
 
-	[field: SerializeField]
 	public Shape ShieldShape { get; private set; }
 
 	public bool HasShield { get; private set; }
@@ -49,7 +48,7 @@ public class Enemy : MonoBehaviour
 
 		Player = FindObjectOfType<Player>();
 
-		action = Action.ATTACK;
+		action = Action.MOVEMENT;
 
 		//switch ( Shape ) {
 		//	case Shape.CIRCLE:
@@ -75,12 +74,10 @@ public class Enemy : MonoBehaviour
 		newEulerAngles.y = transform.eulerAngles.y;
 		transform.eulerAngles = newEulerAngles;
 
-		//Debug.Log( Shape + " > " + shapeNames[ (int)Shape ] );
-
-		if ( currentAnimation != shapeNames[ (int)Shape ] + "_" + actionNames[ (int)action ] ) {
-			currentAnimation = shapeNames[ (int)Shape ] + "_" + actionNames[ (int)action ];
-			//animator.Play( currentAnimation );
-			animator.Play( "SquareMonster_Movement" );
+		string newAnimation = shapeNames[ (int)Shape ] + "Monster_" + actionNames[ (int)action ];
+		if ( currentAnimation != newAnimation ) {
+			currentAnimation = newAnimation;
+			animator.Play( currentAnimation );
 		}
 
 	}

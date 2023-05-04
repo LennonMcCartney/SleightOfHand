@@ -11,7 +11,7 @@ public class TriangleEnemy : MonoBehaviour {
 
 	public float FlightTime { get; set; }
 
-	private float baseHeight;
+	//private float baseHeight;
 
 	private void Start() {
 		enemy = GetComponent<Enemy>();
@@ -24,11 +24,11 @@ public class TriangleEnemy : MonoBehaviour {
 		if ( flightTimer < FlightTime ) {
 			Vector3 position = transform.position;
 			position.y += Time.deltaTime * enemy.Speed;
-			baseHeight = position.y;
+			//baseHeight = position.y;
 			transform.position = position;
 		} else {
 			Vector3 position = transform.position;
-			position += transform.up * Mathf.Sin( sinTimer * 5.0f ) * 0.008f;
+			position += transform.up * Mathf.Sin( sinTimer * 4.0f ) * 0.004f;
 			transform.position = position;
 
 			sinTimer += Time.deltaTime;

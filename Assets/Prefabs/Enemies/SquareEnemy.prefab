@@ -117,7 +117,7 @@ GameObject:
   - component: {fileID: 8997264822297686712}
   - component: {fileID: 1156159197080398539}
   - component: {fileID: 5265783601583727490}
-  - component: {fileID: 119195590486807254}
+  - component: {fileID: 1514988940844087184}
   m_Layer: 3
   m_Name: SquareEnemy
   m_TagString: Untagged
@@ -189,9 +189,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 34a994d07e9e27a4192ac20a1a7818ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <Shape>k__BackingField: 0
-  <ShieldShape>k__BackingField: 0
---- !u!114 &119195590486807254
+  <Shape>k__BackingField: 1
+--- !u!114 &1514988940844087184
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -200,6 +199,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 8997264822297686713}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f5afbb4452608c84da3132227577f319, type: 3}
+  m_Script: {fileID: 11500000, guid: fc963703f335d1f46855764894a11cfe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  movementCooldown: 1
+  movementTime: 0.3
