@@ -32,10 +32,9 @@ public class TriangleEnemy : MonoBehaviour {
 			transform.position = position;
 
 			sinTimer += Time.deltaTime;
-			//Debug.Log( enemy.Player.transform.position );
-			//transform.LookAt( enemy.Player.transform );
-			transform.position += transform.forward * enemy.Speed / 300;
 
+			//transform.LookAt( enemy.Player.CinemachineVirtualCamera.transform.position );
+			transform.position += transform.forward * enemy.Speed * Time.deltaTime;
 		}
 	}
 

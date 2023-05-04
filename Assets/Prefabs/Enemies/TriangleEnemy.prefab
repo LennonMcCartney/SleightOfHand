@@ -167,7 +167,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <Shape>k__BackingField: 2
-  <ShieldShape>k__BackingField: 0
 --- !u!114 &1950311301605666671
 MonoBehaviour:
   m_ObjectHideFlags: 0
