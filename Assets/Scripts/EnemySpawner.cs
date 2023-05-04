@@ -33,7 +33,7 @@ public class EnemySpawner : MonoBehaviour {
 
 	[HideInInspector] public EnemySpawnManager enemySpawnManager;
 
-	[SerializeField] private List<GameObject> spawnedEnemies = new List<GameObject>();
+	private List<GameObject> spawnedEnemies = new List<GameObject>();
 
 	private void Start() {
 

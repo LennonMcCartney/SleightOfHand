@@ -49,6 +49,8 @@ public class DrawOnPinch : MonoBehaviour {
 	[SerializeField] private LineRenderer leftLineRenderer;
 	[SerializeField] private LineRenderer rightLineRenderer;
 
+	[SerializeField] ParticleSystem fingerParticles;
+
 	private int enemyLayerMask;
 
 	private float counter = 0.0f;
@@ -93,6 +95,8 @@ public class DrawOnPinch : MonoBehaviour {
 		GenerateSquareTargets();
 		GenerateTriangleTargets();
 
+		fingerParticles.Stop();
+
 	}
 
 	public void FixedUpdate() {
@@ -118,6 +122,8 @@ public class DrawOnPinch : MonoBehaviour {
 	}
 
 	private void Pinching( Handedness handedness, Transform pinchDetectorTransform ) {
+		fingerParticles.Play();
+
 		circleTargets.SetActive( true );
 		squareTargets.SetActive( true );
 		triangleTargets.SetActive( true );
@@ -296,7 +302,7 @@ public class DrawOnPinch : MonoBehaviour {
 
 		for ( int i = 0; i < circleTargetPoints.Count; i++ ) {
 			//bool testBool = false;
-			if ( Vector2.Distance( circleTargetPoints[i], newCollisionPoint ) < targetScale / 2f ) {
+			if ( Vector2.Distance( circleTargetPoints[i], newCollisionPoint ) < 0.2f ) {
 				failedAtCircle = false;
 				if ( !hitCircleTargetPoints.Contains( circleTargetPoints[i] ) ) {
 					hitCircleTargetPoints.Add( circleTargetPoints[i] );
@@ -313,7 +319,7 @@ public class DrawOnPinch : MonoBehaviour {
 		failedAtSquare = true;
 
 		for ( int i = 0; i < squareTargetPoints.Count; i++ ) {
-			if ( Vector2.Distance( squareTargetPoints[i], newCollisionPoint ) < targetScale / 2f ) {
+			if ( Vector2.Distance( squareTargetPoints[i], newCollisionPoint ) < 0.2f ) {
 				failedAtSquare = false;
 				if ( !hitSquareTargetPoints.Contains( squareTargetPoints[i] ) ) {
 					hitSquareTargetPoints.Add( squareTargetPoints[i] );
@@ -331,7 +337,7 @@ public class DrawOnPinch : MonoBehaviour {
 		failedAtTriangle = true;
 
 		for ( int i = 0; i < triangleTargetPoints.Count; i++ ) {
-			if ( Vector2.Distance( triangleTargetPoints[i], newCollisionPoint ) < targetScale / 2f ) {
+			if ( Vector2.Distance( triangleTargetPoints[i], newCollisionPoint ) < 0.2f ) {
 				failedAtTriangle = false;
 				if ( !hitTriangleTargetPoints.Contains( triangleTargetPoints[i] ) ) {
 					hitTriangleTargetPoints.Add( triangleTargetPoints[i] );
@@ -370,6 +376,8 @@ public class DrawOnPinch : MonoBehaviour {
 	}
 
 	public void EndPinch() {
+		fingerParticles.Stop();
+
 		CheckCircle();
 		CheckSquare();
 		CheckTriangle();

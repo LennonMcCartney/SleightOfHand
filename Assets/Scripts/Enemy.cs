@@ -50,21 +50,6 @@ public class Enemy : MonoBehaviour
 
 		action = Action.MOVEMENT;
 
-		//switch ( Shape ) {
-		//	case Shape.CIRCLE:
-		//		animator.Play( "CircleMonster_Movement" );
-		//		break;
-		//	case Shape.SQUARE:
-		//		animator.Play( "SquareMonster_Movement" );
-		//		break;
-		//	case Shape.TRIANGLE:
-		//		animator.Play( "TriangleMonster_Movement" );
-		//		break;
-		//	default:
-		//		Debug.Log( "Invalid shape > " + Shape );
-		//		break;
-		//}
-
 	}
 
 	private void Update() {
@@ -79,6 +64,10 @@ public class Enemy : MonoBehaviour
 			currentAnimation = newAnimation;
 			animator.Play( currentAnimation );
 		}
+
+		//if ( Vector2.Distance() ) {
+
+		//}
 
 	}
 
