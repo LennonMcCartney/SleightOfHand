@@ -79,7 +79,7 @@ public class EnemySpawner : MonoBehaviour {
 	}
 
 	private void OnTriggerEnter( Collider other ) {
-		if ( other.TryGetComponent<Player>( out Player testPlayer ) ) {
+		if ( other.TryGetComponent( out Player collidedPlayer ) ) {
 			reachedByPlayer = true;
 			player.virtualCameraController.shouldMove = false;
 		}
@@ -94,7 +94,6 @@ public class EnemySpawner : MonoBehaviour {
 		GameObject newSpawnPoint = Instantiate( spawnPointPrefab );
 #if UNITY_EDITOR
 		Undo.RegisterCreatedObjectUndo( newSpawnPoint, "Create new Enemy Spawn Point" );
-		//Undo.RecordObject( newSpawnPoint, "Create new Enemy Spawn Point" );
 #endif //UNITY_EDITOR
 		newSpawnPoint.transform.parent = transform;
 

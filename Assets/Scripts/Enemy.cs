@@ -54,7 +54,7 @@ public class Enemy : MonoBehaviour
 
 	private void Update() {
 		transform.LookAt( mainCamera.transform );
-		transform.Rotate( 0, 180, 0 );
+		//transform.Rotate( 0, 180, 0 );
 		Vector3 newEulerAngles = new Vector3();
 		newEulerAngles.y = transform.eulerAngles.y;
 		transform.eulerAngles = newEulerAngles;
