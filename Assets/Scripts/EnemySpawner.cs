@@ -47,6 +47,8 @@ public class EnemySpawner : MonoBehaviour {
 
 		RefreshSpawnPoints();
 
+		spawnCounter = spawnInterval;
+
 		//Debug.Log( "numOfEnemiesShielded > " + numOfEnemiesShielded );
 		//for ( int i = 0; i < numOfEnemiesShielded; i++ ) {
 		//	Debug.Log( "i > " + i );
@@ -68,7 +70,7 @@ public class EnemySpawner : MonoBehaviour {
 	private void Update() {
 		if ( reachedByPlayer && numOfEnemiesSpawned < numOfEnemiesToSpawn ) {
 			spawnCounter += Time.deltaTime;
-			if ( spawnCounter > spawnInterval ) {
+			if ( spawnCounter >= spawnInterval ) {
 				//Debug.Log( spawnedEnemies.Count );
 
 				SpawnPoint spawnPoint = spawnPoints[ Random.Range( 0, spawnPoints.Length ) ];

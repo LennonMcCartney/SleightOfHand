@@ -112,8 +112,6 @@ public class DrawOnPinch : MonoBehaviour {
 	}
 
 	public void FixedUpdate() {
-		Debug.DrawLine( player.transform.position, player.transform.position + player.transform.forward * 1000.0f, Color.green );
-
 		if ( pinchingLeft ) {
 			Pinching( Handedness.LEFT, pinchDetectorLeft.transform );
 		}

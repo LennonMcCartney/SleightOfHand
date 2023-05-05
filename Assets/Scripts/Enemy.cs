@@ -23,18 +23,12 @@ public class Enemy : MonoBehaviour
 
 	private Animator animator;
 
-	private Action action;
+	public Action action;
 
 	[field:SerializeField]
 	public Shape Shape { get; private set; }
 
-	//public Shape ShieldShape { get; private set; }
-
 	private Shape shieldShape = Shape.NONE;
-
-	//public bool HasShield { get; set; }
-
-	//private bool hasShield = false;
 
 	public Player Player { get; set; }
 
@@ -47,9 +41,20 @@ public class Enemy : MonoBehaviour
 
 	private string[] shieldedNames = { "_Shielded_Circle", "_Shielded_Square", "_Shielded_Triangle", "" };
 
+	[HideInInspector] public AudioSource audioSource;
+
+	[SerializeField] public AudioClip idleSound;
+	[SerializeField] public AudioClip attackSound;
+
+	[SerializeField] private float attackCooldown = 1.0f;
+	private float attackTimer = 0.0f;
 
 	private void Start() {
 		mainCamera = Camera.main;
+
+		audioSource = GetComponent<AudioSource>();
+		audioSource.clip = idleSound;
+		audioSource.Play();
 
 		animator = GetComponentInChildren<Animator>();
 
@@ -57,8 +62,9 @@ public class Enemy : MonoBehaviour
 
 		action = Action.MOVEMENT;
 
-		//ShieldShape = Shape.NONE;
-		//hasShield = true;
+		attackTimer = attackCooldown;
+
+		UpdateAnimation();
 
 	}
 
@@ -72,16 +78,27 @@ public class Enemy : MonoBehaviour
 
 		//Debug.Log( "Shield Shape > " + shieldShape );
 
+		UpdateAnimation();
+
+		if ( Vector3.Distance( transform.position, Player.transform.position ) < 3.0f ) {
+			if ( attackTimer >= attackCooldown ) {
+				audioSource.clip = attackSound;
+				action = Action.ATTACK;
+				Player.Hit();
+				attackTimer = 0.0f;
+			} else {
+				attackTimer += Time.deltaTime;
+			}
+		}
+
+	}
+
+	private void UpdateAnimation() {
 		string newAnimation = shapeNames[ (int)Shape ] + "Monster_" + actionNames[ (int)action ] + shieldedNames[ (int)shieldShape ];
-		if ( currentAnimation != newAnimation ) {
+		if (currentAnimation != newAnimation) {
 			currentAnimation = newAnimation;
 			animator.Play( currentAnimation );
 		}
-
-		//if ( Vector2.Distance() ) {
-
-		//}
-
 	}
 
 	public void HitBySpell( Shape spellShape ) {

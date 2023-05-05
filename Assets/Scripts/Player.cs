@@ -13,8 +13,15 @@ public class Player : MonoBehaviour {
 
 	[SerializeField] private float speed;
 
+	[SerializeField] private int hitPoints = 10;
+
 	private void Start() {
 		VirtualCameraController.speed = speed;
+	}
+
+	public void Hit() {
+		Debug.Log( "Player Hit" );
+		hitPoints--;
 	}
 
 }
