@@ -11,8 +11,12 @@ public class TitlescreenButton : MonoBehaviour {
 
 	[SerializeField] float loadSceneCountdown;
 
-	public void PlayGameButtonClicked() {
+	public void PlayButtonClicked() {
 		shouldLoadGameplayScene = true;
+	}
+
+	public void QuitButtonClicked() {
+		Application.Quit();
 	}
 
 	private void Update() {
@@ -20,7 +24,7 @@ public class TitlescreenButton : MonoBehaviour {
 			timer += Time.deltaTime;
 
 			if ( timer >= loadSceneCountdown ) {
-				SceneManager.LoadSceneAsync( "Assets/Scenes/GameplayScene.unity" );
+				SceneManager.LoadScene( "Assets/Scenes/GameplayScene.unity" );
 			}
 		}
 	}

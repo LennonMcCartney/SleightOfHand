@@ -42,6 +42,8 @@ public class VirtualCameraController : MonoBehaviour {
 			virtualCamera.LookAt = lookAtInFront.transform;
 		}
 
+		Debug.Log( shouldMove );
+
 	}
 
 	public Enemy GetClosestEnemy() {

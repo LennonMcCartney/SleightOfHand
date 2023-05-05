@@ -27,7 +27,10 @@ public class EnemySpawner : MonoBehaviour {
 	[SerializeField] private float spawnInterval = 5.0f;
 	private float spawnCounter = 0.0f;
 
-	[SerializeField] private float enemySpeed;
+	[SerializeField] private float circleEnemySpeed;
+	[SerializeField] private float squareEnemySpeed;
+	[SerializeField] private float triangleEnemySpeed;
+	[SerializeField] private float triangleEnemyAscendingSpeed;
 
 	[SerializeField] private float triangleEnemyFlightTime;
 
@@ -80,10 +83,14 @@ public class EnemySpawner : MonoBehaviour {
 				//newEnemyObject.transform.SetParent( null );
 				Enemy newEnemy = newEnemyObject.GetComponent<Enemy>();
 				newEnemy.Spawner = this;
-				newEnemy.Speed = enemySpeed;
 				newEnemy.transform.parent = transform.parent;
 
-				if ( newEnemy.TryGetComponent( out TriangleEnemy triangleEnemy ) ) {
+				if ( newEnemy.Shape == Shape.CIRCLE ) {
+					newEnemy.Speed = circleEnemySpeed;
+				} else if ( newEnemy.Shape == Shape.SQUARE ) {
+					newEnemy.Speed = squareEnemySpeed;
+				} else if ( newEnemy.TryGetComponent( out TriangleEnemy triangleEnemy ) ) {
+					newEnemy.Speed = triangleEnemySpeed;
 					triangleEnemy.FlightTime = triangleEnemyFlightTime;
 				}
 
@@ -116,11 +123,13 @@ public class EnemySpawner : MonoBehaviour {
 
 		if ( killedAllEnemies ) {
 			player.VirtualCameraController.shouldMove = true;
+			enabled = false;
 		}
 	}
 
 	private void OnTriggerEnter( Collider other ) {
 		if (other.TryGetComponent( out Player collidedPlayer )) {
+			//Debug.Log( "Reached By Player" );
 			reachedByPlayer = true;
 			player.VirtualCameraController.shouldMove = false;
 		}
