@@ -12,8 +12,9 @@ public class EnemySpawnManager : MonoBehaviour {
 	[SerializeField] private EnemySpawner[] enemySpawners;
 
 	private void Start() {
+#if UNITY_EDITOR
 		Undo.undoRedoPerformed += RefreshEnemySpawners;
-
+#endif
 		//RefreshEnemySpawners();
 
 	}

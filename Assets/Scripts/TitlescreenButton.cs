@@ -24,7 +24,7 @@ public class TitlescreenButton : MonoBehaviour {
 			timer += Time.deltaTime;
 
 			if ( timer >= loadSceneCountdown ) {
-				SceneManager.LoadScene( "Assets/Scenes/GameplayScene.unity" );
+				SceneManager.LoadScene( "Assets/Scenes/WhiteboxScene(Transferral).unity" );
 			}
 		}
 	}

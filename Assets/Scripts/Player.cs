@@ -13,6 +13,8 @@ public class Player : MonoBehaviour {
 
 	[SerializeField] private HeartCanvas heartCanvas;
 
+	[SerializeField] private DeathScreen deathScreen;
+
 	[field: SerializeField] public int HitPoints { get; set; } = 10;
 
 	[SerializeField] private float speed;
@@ -28,6 +30,7 @@ public class Player : MonoBehaviour {
 
 			if ( HitPoints <= 0 ) {
 				Debug.Log( "Player dead" );
+				deathScreen.PlayDeathScreen();
 			}
 		}
 	}
