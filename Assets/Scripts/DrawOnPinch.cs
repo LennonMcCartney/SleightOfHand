@@ -3,6 +3,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class DrawOnPinch : MonoBehaviour {
 
@@ -51,6 +52,8 @@ public class DrawOnPinch : MonoBehaviour {
 
 	[SerializeField] ParticleSystem fingerParticles;
 
+	[SerializeField] private VirtualCameraController virtualCameraController;
+
 	private int enemyLayerMask;
 
 	private float counter = 0.0f;
@@ -63,10 +66,14 @@ public class DrawOnPinch : MonoBehaviour {
 	private bool failedAtSquare = false;
 	private bool failedAtTriangle = false;
 
-	public void DebugKillEnemy() {
-		FireSpell( Shape.CIRCLE );
-		FireSpell( Shape.SQUARE );
-		FireSpell( Shape.TRIANGLE );
+	public void DebugFireSpell( InputAction.CallbackContext context ) {
+
+		if ( context.performed ) {
+			Debug.Log( "DebugFireSpell" );
+			FireSpell( Shape.NONE );
+			//FireSpell( Shape.SQUARE );
+			//FireSpell( Shape.TRIANGLE );
+		}
 	}
 
 	public static float Round( float value, int digits ) {
@@ -75,13 +82,18 @@ public class DrawOnPinch : MonoBehaviour {
 	}
 
 	private void FireSpell( Shape spellShape ) {
-		Debug.Log( "Fire > " + spellShape );
-		if ( Physics.Raycast( player.transform.position, player.transform.forward, out RaycastHit raycastHit, 1000000.0f, enemyLayerMask ) ) {
-			if ( raycastHit.transform.gameObject.TryGetComponent( out Enemy hitEnemy ) ) {
-				Debug.Log( "Hit Enemy" );
-				hitEnemy.HitBySpell( spellShape );
-			}
+		Enemy closestEnemy = virtualCameraController.GetClosestEnemy();
+		if ( closestEnemy ) {
+			closestEnemy.HitBySpell( spellShape );
 		}
+
+		//Debug.Log( "Fire > " + spellShape );
+		//if ( Physics.Raycast( player.transform.position, player.transform.forward, out RaycastHit raycastHit, 1000000.0f, enemyLayerMask ) ) {
+		//	if ( raycastHit.transform.gameObject.TryGetComponent( out Enemy hitEnemy ) ) {
+		//		Debug.Log( "Hit Enemy" );
+		//		hitEnemy.HitBySpell( spellShape );
+		//	}
+		//}
 	}
 
 	private void Start() {

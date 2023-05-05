@@ -34,18 +34,17 @@ public class VirtualCameraController : MonoBehaviour {
 			trackedDolly.m_PathPosition += Time.deltaTime * speed;
 			lookAtInFrontTrackedDolly.m_PathPosition = trackedDolly.m_PathPosition + Time.deltaTime * speed * 50;
 		}
-
+		
 		Enemy closestEnemy = GetClosestEnemy();
 		if ( closestEnemy ) {
-			//virtualCamera.LookAt = GetClosestEnemy().transform;
-
+			virtualCamera.LookAt = closestEnemy.transform;
 		} else {
 			virtualCamera.LookAt = lookAtInFront.transform;
 		}
 
 	}
 
-	private Enemy GetClosestEnemy() {
+	public Enemy GetClosestEnemy() {
 
 		enemies = FindObjectsOfType<Enemy>();
 

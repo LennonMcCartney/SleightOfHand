@@ -39,8 +39,6 @@ public class SquareEnemy : MonoBehaviour {
 			}
 		}
 
-		Debug.Log( navMeshAgent.speed );
-
 	}
 
 }

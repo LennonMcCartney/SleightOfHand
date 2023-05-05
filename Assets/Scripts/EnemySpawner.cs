@@ -13,6 +13,12 @@ public class EnemySpawner : MonoBehaviour {
 
 	[SerializeField] private int numOfEnemiesToSpawn;
 
+	//[SerializeField] private int numOfEnemiesShielded;
+
+	[SerializeField] [Range(1,100)] private int probabilityShielded;
+
+	private List<int> enemiesShielded;
+
 	private int numOfEnemiesSpawned = 0;
 	private int numOfEnemiesKilled = 0;
 
@@ -41,6 +47,22 @@ public class EnemySpawner : MonoBehaviour {
 
 		RefreshSpawnPoints();
 
+		//Debug.Log( "numOfEnemiesShielded > " + numOfEnemiesShielded );
+		//for ( int i = 0; i < numOfEnemiesShielded; i++ ) {
+		//	Debug.Log( "i > " + i );
+		//	int enemyShielded = Random.Range( 0, numOfEnemiesToSpawn );
+		//	//Debug.Log( "enemyShielded > " + enemyShielded );
+		//	while ( enemiesShielded.Contains( enemyShielded ) ) {
+		//		enemyShielded = Random.Range( 0, numOfEnemiesToSpawn );
+		//		Debug.Log( "enemyShielded > " + enemyShielded );
+		//	}
+
+		//	//enemiesShielded.Add( enemyShielded );
+
+		//	//Debug.Log( "enemiesShielded > " + enemiesShielded );
+
+		//}
+
 	}
 
 	private void Update() {
@@ -63,10 +85,27 @@ public class EnemySpawner : MonoBehaviour {
 					triangleEnemy.FlightTime = triangleEnemyFlightTime;
 				}
 
+				numOfEnemiesSpawned++;
+
+				float probabilityCheck = Random.Range( 1, 101 );
+
+				if ( probabilityCheck <= probabilityShielded ) {
+					//Debug.Log( "HasShield" );
+					newEnemy.HasShield();
+				}
+
+				//if ( enemiesShielded.Contains( numOfEnemiesSpawned ) ) {
+				//newEnemy.HasShield();
+				//}
+
+				//Debug.Log( "enemiesShielded > " + enemiesShielded );
+
 				spawnedEnemies.Add( newEnemyObject );
 
-				numOfEnemiesSpawned++;
-				
+				//if ( enemiesShielded.Contains( spawnedEnemies.Count ) ) {
+					//newEnemy.HasShield = true;
+				//}
+
 				//}
 
 				spawnCounter = 0.0f;
@@ -79,7 +118,7 @@ public class EnemySpawner : MonoBehaviour {
 	}
 
 	private void OnTriggerEnter( Collider other ) {
-		if ( other.TryGetComponent( out Player collidedPlayer ) ) {
+		if (other.TryGetComponent( out Player collidedPlayer )) {
 			reachedByPlayer = true;
 			player.VirtualCameraController.shouldMove = false;
 		}
@@ -109,7 +148,7 @@ public class EnemySpawner : MonoBehaviour {
 
 		numOfEnemiesKilled++;
 
-		if ( numOfEnemiesKilled >= numOfEnemiesToSpawn ) {
+		if (numOfEnemiesKilled >= numOfEnemiesToSpawn) {
 			killedAllEnemies = true;
 		}
 	}
