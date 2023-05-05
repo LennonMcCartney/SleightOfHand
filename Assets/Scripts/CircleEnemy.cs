@@ -20,6 +20,10 @@ public class CircleEnemy : MonoBehaviour {
 	private void Update() {
 		navMeshAgent.SetDestination( enemy.Player.transform.position );
 
+		if ( enemy.reachedPlayer ) {
+			navMeshAgent.speed = 0.0f;
+		}
+
 	}
 
 }

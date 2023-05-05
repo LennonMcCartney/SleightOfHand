@@ -49,6 +49,8 @@ public class Enemy : MonoBehaviour
 	[SerializeField] private float attackCooldown = 1.0f;
 	private float attackTimer = 0.0f;
 
+	public bool reachedPlayer = false;
+
 	private void Start() {
 		mainCamera = Camera.main;
 
@@ -81,6 +83,7 @@ public class Enemy : MonoBehaviour
 		UpdateAnimation();
 
 		if ( Vector3.Distance( transform.position, Player.transform.position ) < 3.0f ) {
+			reachedPlayer = true;
 			if ( attackTimer >= attackCooldown ) {
 				audioSource.clip = attackSound;
 				action = Action.ATTACK;

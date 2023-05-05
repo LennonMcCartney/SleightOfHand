@@ -54,6 +54,8 @@ public class DrawOnPinch : MonoBehaviour {
 
 	[SerializeField] private VirtualCameraController virtualCameraController;
 
+	private AudioSource audioSource;
+
 	private int enemyLayerMask;
 
 	private float counter = 0.0f;
@@ -69,10 +71,7 @@ public class DrawOnPinch : MonoBehaviour {
 	public void DebugFireSpell( InputAction.CallbackContext context ) {
 
 		if ( context.performed ) {
-			Debug.Log( "DebugFireSpell" );
 			FireSpell( Shape.NONE );
-			//FireSpell( Shape.SQUARE );
-			//FireSpell( Shape.TRIANGLE );
 		}
 	}
 
@@ -87,17 +86,12 @@ public class DrawOnPinch : MonoBehaviour {
 			closestEnemy.HitBySpell( spellShape );
 		}
 
-		//Debug.Log( "Fire > " + spellShape );
-		//if ( Physics.Raycast( player.transform.position, player.transform.forward, out RaycastHit raycastHit, 1000000.0f, enemyLayerMask ) ) {
-		//	if ( raycastHit.transform.gameObject.TryGetComponent( out Enemy hitEnemy ) ) {
-		//		Debug.Log( "Hit Enemy" );
-		//		hitEnemy.HitBySpell( spellShape );
-		//	}
-		//}
 	}
 
 	private void Start() {
 		enemyLayerMask = LayerMask.GetMask( "Enemy" );
+
+		audioSource = GetComponent<AudioSource>();
 
 		circleTargets.SetActive( false );
 		squareTargets.SetActive( false );
@@ -107,7 +101,12 @@ public class DrawOnPinch : MonoBehaviour {
 		GenerateSquareTargets();
 		GenerateTriangleTargets();
 
-		fingerParticles.Stop();
+		fingerParticles.Pause();
+
+		audioSource.volume = 0.0f;
+		audioSource.Play();
+		audioSource.Pause();
+		audioSource.volume = 1.0f;
 
 	}
 
@@ -133,6 +132,8 @@ public class DrawOnPinch : MonoBehaviour {
 
 	private void Pinching( Handedness handedness, Transform pinchDetectorTransform ) {
 		fingerParticles.Play();
+
+		audioSource.UnPause();
 
 		circleTargets.SetActive( true );
 		squareTargets.SetActive( true );
@@ -387,6 +388,8 @@ public class DrawOnPinch : MonoBehaviour {
 
 	public void EndPinch() {
 		fingerParticles.Stop();
+
+		audioSource.Pause();
 
 		CheckCircle();
 		CheckSquare();

@@ -11,8 +11,6 @@ public class TriangleEnemy : MonoBehaviour {
 
 	public float FlightTime { get; set; }
 
-	//private float baseHeight;
-
 	private void Start() {
 		enemy = GetComponent<Enemy>();
 	}
@@ -24,7 +22,6 @@ public class TriangleEnemy : MonoBehaviour {
 		if ( flightTimer < FlightTime ) {
 			Vector3 position = transform.position;
 			position.y += Time.deltaTime * enemy.Speed;
-			//baseHeight = position.y;
 			transform.position = position;
 		} else {
 			Vector3 position = transform.position;
@@ -33,8 +30,9 @@ public class TriangleEnemy : MonoBehaviour {
 
 			sinTimer += Time.deltaTime;
 
-			//transform.LookAt( enemy.Player.CinemachineVirtualCamera.transform.position );
-			transform.position += transform.forward * enemy.Speed * Time.deltaTime;
+			if ( !enemy.reachedPlayer ) {
+				transform.position += transform.forward * enemy.Speed * Time.deltaTime;
+			}
 		}
 	}
 

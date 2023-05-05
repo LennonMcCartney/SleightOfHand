@@ -28,17 +28,18 @@ public class SquareEnemy : MonoBehaviour {
 
 		timer += Time.deltaTime;
 
-		if ( timer > movementCooldown ) {
+		if ( enemy.reachedPlayer ) {
+			navMeshAgent.speed = 0.0f;
+		} else if (timer > movementCooldown) {
 			//Debug.Log( "movementCooldown" );
 			navMeshAgent.speed = enemy.Speed * 15.0f;
 
-			if ( timer > movementCooldown + movementTime ) {
+			if (timer > movementCooldown + movementTime) {
 				//Debug.Log( "movementTime" );
 				navMeshAgent.speed = 0.0f;
 				timer = 0.0f;
 			}
 		}
-
 	}
 
 }
