@@ -82,7 +82,7 @@ public class Enemy : MonoBehaviour
 
 		UpdateAnimation();
 
-		if ( Vector3.Distance( transform.position, Player.transform.position ) < 3.0f ) {
+		if ( Vector3.Distance( transform.position, Player.transform.position ) < 2.0f ) {
 			reachedPlayer = true;
 			if ( attackTimer >= attackCooldown ) {
 				audioSource.clip = attackSound;

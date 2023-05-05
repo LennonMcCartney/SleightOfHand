@@ -11,17 +11,25 @@ public class Player : MonoBehaviour {
 	[field: SerializeField]
 	public CinemachineVirtualCamera CinemachineVirtualCamera { get; set; }
 
-	[SerializeField] private float speed;
+	[SerializeField] private HeartCanvas heartCanvas;
 
-	[SerializeField] private int hitPoints = 10;
+	[field: SerializeField] public int HitPoints { get; set; } = 10;
+
+	[SerializeField] private float speed;
 
 	private void Start() {
 		VirtualCameraController.speed = speed;
 	}
 
 	public void Hit() {
-		Debug.Log( "Player Hit" );
-		hitPoints--;
+		if ( HitPoints > 0 ) {
+			HitPoints--;
+			heartCanvas.RemoveHeart();
+
+			if ( HitPoints <= 0 ) {
+				Debug.Log( "Player dead" );
+			}
+		}
 	}
 
 }

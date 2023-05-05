@@ -69,7 +69,6 @@ public class DrawOnPinch : MonoBehaviour {
 	private bool failedAtTriangle = false;
 
 	public void DebugFireSpell( InputAction.CallbackContext context ) {
-
 		if ( context.performed ) {
 			FireSpell( Shape.NONE );
 		}
